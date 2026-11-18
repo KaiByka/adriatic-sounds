@@ -1,0 +1,94 @@
+{
+  "comment": "Sprint 1 selection: pin key -> Freesound sound id. All ids verified CC0/CC-BY with geotag inside bbox lon 12-20, lat 41.5-46.5 on 2026-11-18 via the Freesound API. Display text states the ACTUAL recording location (rule 9, docs/sourcing.md). zadar-organ has no CC0/CC-BY recording in the bbox and stays 'not yet recorded'.",
+  "bbox": { "min_lon": 12.0, "max_lon": 20.0, "min_lat": 41.5, "max_lat": 46.5 },
+  "pins": [
+    {
+      "key": "senj-bura",
+      "freesound_id": 543767,
+      "name": "Wind in the rigging",
+      "place": "Marina Kornati, Biograd na Moru",
+      "lat": 43.94, "lon": 15.44,
+      "desc": "A working north-easterly worrying the masts and halyards in the marina — the same voice the bura has in Senj."
+    },
+    {
+      "key": "vis-cove",
+      "freesound_id": 829253,
+      "name": "Tide between the rocks",
+      "place": "Near Rogoznica",
+      "lat": 43.49, "lon": 16.29,
+      "desc": "Sea tides bubbling in and out between limestone rocks in a small village cove, recorded summer 2025."
+    },
+    {
+      "key": "sibenik-bells",
+      "freesound_id": 58266,
+      "name": "Bells and cicadas in Betina",
+      "place": "Betina, island of Murter",
+      "lat": 43.83, "lon": 15.60,
+      "desc": "A lazy summer afternoon: church bells over the harbor and cicadas in the stone pine shade."
+    },
+    {
+      "key": "hvar-riva",
+      "freesound_id": 58342,
+      "name": "Old-town murmur with gulls",
+      "place": "Starigrad, Pag",
+      "lat": 44.43, "lon": 15.06,
+      "desc": "Soundscape of the old town Starigrad on Pag after sunset: sheep, crickets, birds, seagulls, people."
+    },
+    {
+      "key": "split-riva",
+      "freesound_id": 345715,
+      "name": "Evening on the promenade",
+      "place": "Lapad, Dubrovnik",
+      "lat": 42.66, "lon": 18.06,
+      "desc": "Around 6 p.m. in the Lapad district: evening town ambience as the day cools off."
+    },
+    {
+      "key": "rovinj-harbor",
+      "freesound_id": 318322,
+      "name": "Island channel ambience",
+      "place": "Brijuni islands",
+      "lat": 44.92, "lon": 13.77,
+      "desc": "Boat life in the Brijuni channel off the Istrian coast: engines, water, gulls."
+    },
+    {
+      "key": "kornati-open",
+      "freesound_id": 802427,
+      "name": "Open-sea swell",
+      "place": "Open Adriatic, 42.65N 14.04E",
+      "lat": 42.65, "lon": 14.04,
+      "desc": "Small waves breaking close to the microphone in the open south Adriatic — nothing but water and wind."
+    },
+    {
+      "key": "dubrovnik-port",
+      "freesound_id": 345865,
+      "name": "Old town at dusk",
+      "place": "Dubrovnik old town",
+      "lat": 42.64, "lon": 18.11,
+      "desc": "Recorded between 5 and 7 p.m. on the Walls of Dubrovnik's Old Town: the city exhaling after the day."
+    },
+    {
+      "key": "krk-ferry",
+      "freesound_id": 58336,
+      "name": "Ferry with gulls aboard",
+      "place": "Kvarner channel near Rab",
+      "lat": 44.60, "lon": 14.97,
+      "desc": "A car ferry crossing the Kvarner channel: deck rumble, seagulls and people, recorded on board."
+    },
+    {
+      "key": "lastovo-night",
+      "freesound_id": 36784,
+      "name": "Crickets at night",
+      "place": "Hills above Dramalj, near Crikvenica",
+      "lat": 45.20, "lon": 14.67,
+      "desc": "Full-summer night soundfield in the forest on the hill above the village of Dramalj."
+    },
+    {
+      "key": "stari-grad-cicadas",
+      "freesound_id": 262906,
+      "name": "Cicadas in the pines",
+      "place": "Brač island",
+      "lat": 43.27, "lon": 16.63,
+      "desc": "Cicada orni singing from a vacation on the island of Brač, Croatia, 2013."
+    }
+  ]
+}
