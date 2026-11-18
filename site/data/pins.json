@@ -1,0 +1,107 @@
+[
+ {
+  "key": "zadar-organ",
+  "name": "The sea organ",
+  "place": "Zadar",
+  "lat": 44.117,
+  "lon": 15.219,
+  "desc": "Waves play the organ: sea-driven pipes tuned to tones. The best sound-object on the coast."
+ },
+ {
+  "key": "senj-bura",
+  "name": "Bura in the rigging",
+  "place": "Senj",
+  "lat": 45.0,
+  "lon": 14.9,
+  "desc": "The cold katabatic wind pouring off Velebit, humming through masts.",
+  "audio": "audio/bura-placeholder.wav",
+  "placeholder": true,
+  "credit": "Synthesized placeholder. To be replaced with a real recording at launch."
+ },
+ {
+  "key": "vis-cove",
+  "name": "Waves on limestone",
+  "place": "Pine cove, Vis",
+  "lat": 43.05,
+  "lon": 16.19,
+  "desc": "Low swell folding onto stone in a cove that holds no wind.",
+  "audio": "audio/surf-placeholder.wav",
+  "placeholder": true,
+  "credit": "Synthesized placeholder. To be replaced with a real recording at launch."
+ },
+ {
+  "key": "sibenik-bells",
+  "name": "Bells across the water",
+  "place": "\u0160ibenik",
+  "lat": 43.718,
+  "lon": 15.895,
+  "desc": "Noon bells arriving over the harbor, the way they have for centuries.",
+  "audio": "audio/bells-placeholder.wav",
+  "placeholder": true,
+  "credit": "Synthesized placeholder. To be replaced with a real recording at launch."
+ },
+ {
+  "key": "hvar-riva",
+  "name": "Harbor murmur",
+  "place": "Hvar riva",
+  "lat": 43.173,
+  "lon": 16.439,
+  "desc": "Dusk on the waterfront: rigging, distant talk, water against stone."
+ },
+ {
+  "key": "split-riva",
+  "name": "Riva at dusk",
+  "place": "Split",
+  "lat": 43.507,
+  "lon": 16.44,
+  "desc": "The palm-lined promenade filling up as the day cools."
+ },
+ {
+  "key": "rovinj-harbor",
+  "name": "Old town harbor",
+  "place": "Rovinj",
+  "lat": 45.083,
+  "lon": 13.636,
+  "desc": "Fishing boats and gulls under the hill of the old town."
+ },
+ {
+  "key": "kornati-open",
+  "name": "Open channel",
+  "place": "Kornati",
+  "lat": 43.7,
+  "lon": 15.3,
+  "desc": "Nothing but water, wind and a line of white islands."
+ },
+ {
+  "key": "dubrovnik-port",
+  "name": "The old port",
+  "place": "Dubrovnik",
+  "lat": 42.641,
+  "lon": 18.11,
+  "desc": "The harbor inside the walls, small boats knocking gently."
+ },
+ {
+  "key": "krk-ferry",
+  "name": "Ferry arriving",
+  "place": "Krk",
+  "lat": 45.05,
+  "lon": 14.58,
+  "desc": "Diesel idle, ropes, the ramp chain, gulls following in."
+ },
+ {
+  "key": "lastovo-night",
+  "name": "Crickets at night",
+  "place": "Lastovo",
+  "lat": 42.76,
+  "lon": 16.87,
+  "desc": "Full-summer night noise from the darkest island of the Adriatic."
+ },
+ {
+  "key": "stari-grad-cicadas",
+  "name": "Cicadas in the pines",
+  "place": "Stari Grad, Hvar",
+  "lat": 43.18,
+  "lon": 16.58,
+  "desc": "August in the shade: cicadas over dry grass and resin."
+ }
+]
