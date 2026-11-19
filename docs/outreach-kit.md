@@ -42,7 +42,20 @@ Everything you need is already live and linkable:
 
 | # | Venue | Format | Notes |
 |---|---|---|---|
-| 1 | **Awesome-list PRs** (GitHub): search `awesome field recording`, `awesome sound maps`, `awesome audio`, `awesome maps` repos | one-line PR adding the link + 25-word pitch | highest-quality, permanent, dofollow links; read each repo's contribution rules |
+| 1 | **Awesome-list PRs** (GitHub) — see the concrete repo list below | one-line PR adding the link + 25-word pitch | highest-quality, permanent, dofollow links; read each repo's contribution rules |
+
+Concrete awesome-list targets (verified to exist; check they're still active — recent commits/merged PRs — before PRing):
+
+- `landscape82/awesome-sound-design-resources` — has a **Maps** section (lists radio aporee's sound map there) → add us next to it
+- `DolbyIO/awesome-audio` — the big curated audio-resources list (maps/sound-maps section)
+- `hwclass/awesome-sound` — curated sound & audio packages/resources
+- `GareBear99/awesome-audio-lists` — index of audio awesome-lists
+- `github.com/topics/field-recording` — browse repos tagged `field-recording`; some keep resource lists in READMEs
+- search GitHub yourself: `https://github.com/search?q=awesome+sound+map&type=repositories` and `q=awesome+field+recording`, `q=awesome+open+data+audio`
+
+PR line format (match each repo's style):
+> `- [Sounds of the Adriatic](https://sound.marespot.com/) — dark sound map of the Croatian coast; 11 free CC-BY field recordings, tap a pin to play.`
+
 | 2 | **r/fieldrecording** (Reddit) | post in the designated self-promo/share thread (check weekly pinned thread rules) | use the 60-word pitch + homepage link; offer the credits page. Engage in comments |
 | 3 | **Freesound forum / groups** (freesound.org) | a post in the sound-map/geotagging groups: "we built a sound map from CC0/CC-BY Freesound recordings — every sound credited and linked back" | links to /credits.html shine here; do NOT re-upload others' sounds as your own |
 | 4 | **Hacker News — Show HN** | title: "Show HN: Sounds of the Adriatic — a sound map of the Croatian coast" + 60-word pitch | post from the human's account (karma); be present in the thread for 2h |
