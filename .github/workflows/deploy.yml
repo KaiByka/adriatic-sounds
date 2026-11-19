@@ -16,17 +16,27 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  # AGENTS.md: Lighthouse mobile >= 85. Gate the deploy on it: the site is served
-  # locally from ./site (no audio is ever fetched — nothing autoplays), mobile
-  # emulation, 3 runs per URL, hard asserts below.
+  # AGENTS.md: Lighthouse mobile >= 85. Gate the deploy on it: LHCI serves
+  # ./site locally (staticDistDir — no audio is ever fetched, nothing autoplays),
+  # mobile emulation + simulated throttling, 3 runs per URL, hard asserts in
+  # .lighthouserc.json. Local check before wiring this: perf 95-99, a11y/seo/bp 100.
   lighthouse:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: treosh/lighthouse-ci-action@v10
+      - uses: actions/setup-node@v4
         with:
-          configPath: ./.lighthouserc.json
-          uploadArtifacts: true
+          node-version: '20'
+      - name: Run Lighthouse CI (mobile)
+        env:
+          CHROME_PATH: /usr/bin/google-chrome
+        run: npx --yes @lhci/cli@0.15.1 autorun --config=.lighthouserc.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: lighthouse-report
+          path: .lighthouseci/
+          retention-days: 14
 
   deploy:
     needs: lighthouse
