@@ -69,14 +69,15 @@ PR line format (match each repo's style):
 
 ## Channel copy
 
-**Show HN body**
-> A static sound map of the Croatian coast — dark map, pins, tap to hear. 11 field recordings, all CC0/CC-BY with creator + license + source on every pin (credits page: sound.marespot.com/credits.html). Map is Natural Earth (public domain), audio is Opus and only loads when you tap a pin. Built as an experiment by the team behind marespot.com (live Adriatic wind/shelter/sea data).
+**Ready-to-post, per-channel drafts live in `docs/social-posts.md`** — tailored bodies for
+r/fieldrecording (weekly thread only), r/croatia, r/ambientmusic, r/sailing (reply-only, no
+standalone post), the Freesound "Freesound Project" forum, Show HN, newsletter emails, and an
+X/Mastodon thread — each with the community's rules noted and a posting-time tip.
 
-**Reddit r/fieldrecording (share thread)**
-> I mapped Freesound CC0/CC-BY recordings of the Adriatic coast into a little sound map: sound.marespot.com — tap a pin to hear the place. Every pin credits the recordist and links the original; the full license list is on the credits page. Feedback on the recordings/mix very welcome.
+Quick versions:
 
-**Newsletter pitch subject**
-> A sound map of the Croatian coast — 11 free CC-BY field recordings
+**Show HN title**
+> Show HN: Sounds of the Adriatic — a sound map of the Croatian coast
 
 ## Ground rules
 
