@@ -125,6 +125,12 @@
   .card::before { content: ""; display: block; width: 44px; height: 4px; border-radius: 99px; background: rgba(143,160,184,.35); margin: 0 auto 12px; }
   .card.swap { animation: cardIn .35s ease; }
   @keyframes cardIn { from { transform: translateY(10px); opacity: .4; } }
+  /* desktop: the card is a floating callout next to the active pin */
+  @media (min-width: 900px) {
+    .card { width: 380px; max-width: none; }
+    .card.swap { animation: pop .38s cubic-bezier(.34,1.56,.64,1); }
+  }
+  @keyframes pop { from { transform: scale(.82) translateY(10px); opacity: 0; } }
   .card h2 { font: italic 700 22px/1.3 var(--serif); padding-right: 48px; }
   .card .meta { color: var(--accent); font-size: 13.5px; margin: 2px 0 8px; letter-spacing: .04em; }
   .card p#c-desc { color: var(--muted); font-size: 15px; max-width: 72ch; }
@@ -688,6 +694,7 @@ function select(key, opts) {
     if (pe) pe.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
   }
   updateConnector();
+  placeCard();
 }
 
 /* deep links work as #sound=<key> and as ?sound=<key> */
@@ -720,19 +727,48 @@ function updateConnector() {
   const srect = svg.getBoundingClientRect(), crect = card.getBoundingClientRect();
   if (!srect.width) return;
   const scale = srect.width / W;
-  if (crect.top < srect.bottom - 10 && crect.top > srect.top) {
-    const cx = (crect.left + crect.width / 2 - srect.left) / scale;
-    const tx = Math.max(24, Math.min(W - 24, cx));
-    const ty = Math.max(24, Math.min(H - 8, (crect.top - srect.top) / scale + 6));
-    const pp = pinPos[current.key] || { x: PX(current.lon), y: PY(current.lat) };
-    const x = pp.x, y = pp.y;
-    const mx = (x + tx) / 2, my = Math.min(y, ty) - 46;
-    connector.setAttribute('d', 'M' + x + ' ' + y + ' Q' + mx + ' ' + my + ' ' + tx + ' ' + ty);
-    connector.style.opacity = '.55';
-  } else connector.style.opacity = '0';
+  const pp = pinPos[current.key] || { x: PX(current.lon), y: PY(current.lat) };
+  const x = pp.x, y = pp.y;
+  /* card rect in svg coords; aim at the point of the card nearest the pin */
+  const cl = (crect.left - srect.left) / scale, cr = (crect.right - srect.left) / scale;
+  const ct = (crect.top - srect.top) / scale, cb = (crect.bottom - srect.top) / scale;
+  const tx = Math.max(cl, Math.min(cr, x));
+  const ty = Math.max(ct, Math.min(cb, y));
+  if (Math.hypot(tx - x, ty - y) < 10) { connector.style.opacity = '0'; return; } /* pin under the card */
+  const mx = (x + tx) / 2, my = Math.min(y, ty) - 40;
+  connector.setAttribute('d', 'M' + x.toFixed(1) + ' ' + y.toFixed(1) + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1));
+  connector.style.opacity = '.55';
 }
-window.addEventListener('scroll', updateConnector, { passive: true });
-window.addEventListener('resize', () => { updateHitRadius(); updateConnector(); drawWave(); });
+
+/* ---------- desktop floating callout placement ---------- */
+const desktopMQ = window.matchMedia('(min-width: 900px)');
+function placeCard() {
+  if (!card.classList.contains('open') || !current) return;
+  if (!desktopMQ.matches) { /* mobile: bottom sheet via CSS */
+    card.style.left = card.style.top = card.style.right = card.style.bottom = card.style.transformOrigin = '';
+    return;
+  }
+  const srect = svg.getBoundingClientRect();
+  const scale = srect.width / W;
+  const pp = pinPos[current.key] || { x: PX(current.lon), y: PY(current.lat) };
+  const pinX = srect.left + pp.x * scale, pinY = srect.top + pp.y * scale;
+  const cw = 380, ch = card.offsetHeight || 320;
+  let h = 0; for (const c of current.key) h = (h * 31 + c.charCodeAt(0)) >>> 0; /* stable per-pin jitter */
+  const jx = (h % 49) - 24, jy = ((h >> 6) % 41) - 20;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  let left = pinX + 30 + jx;                       /* prefer right of the pin */
+  if (left + cw > vw - 12) left = pinX - cw - 30 + jx; /* else left of it */
+  left = Math.max(12, Math.min(vw - cw - 12, left));
+  let top = pinY - ch * 0.4 + jy;
+  top = Math.max(12, Math.min(vh - ch - 12, top));
+  card.style.left = left + 'px';
+  card.style.top = top + 'px';
+  card.style.right = 'auto';
+  card.style.bottom = 'auto';
+  card.style.transformOrigin = left > pinX ? '0% 50%' : '100% 50%'; /* pop grows from the pin side */
+}
+window.addEventListener('scroll', () => { updateConnector(); placeCard(); }, { passive: true });
+window.addEventListener('resize', () => { updateHitRadius(); updateConnector(); placeCard(); drawWave(); });
 
 /* ---------- audio transport ---------- */
 function fmt(s) { s = Math.floor(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
