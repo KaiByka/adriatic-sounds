@@ -26,4 +26,13 @@ Notes:
 - #1 is linted (awesome-lint + link-check CI) — the bold-link + 🆓 🌐 + " - desc." format above matches its rules.
 - #2 has a ContributingGuidelines.md — one line per resource, PR welcome.
 - Checked as dead/don't bother: `DolbyIO/awesome-audio` (last PR 2023), `hwclass/awesome-sound` (2021).
-- Status after submission: fill in PR URLs here.
+
+## Submitted (2026-11-19, via scripts/submit-awesome-prs.sh) — all OPEN, 1 link line each in the diff
+
+1. https://github.com/landscape82/awesome-sound-design-resources/pull/87
+2. https://github.com/sshuair/awesome-gis/pull/341
+3. https://github.com/Spacial/awesome-arts/pull/10
+4. https://github.com/fmariv/awesome-web-gis-resources/pull/9
+
+Follow-up: watch for maintainer comments; if merged, the backlinks go live on github.com.
+Re-run the script later for more targets — it skips any with an already-open PR.

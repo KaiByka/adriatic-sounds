@@ -59,10 +59,11 @@ main() {
     idx=$((idx+1))
     if [ ${#only[@]} -gt 0 ] && ! printf '%s\n' "${only[@]}" | grep -qx "$idx"; then continue; fi
     IFS='|' read -r repo anchor entry <<< "$t"
-    local name="${repo##*/}" fork="$GHUSER/$name"
+    local name="${repo##*/}"
+    local fork="$GHUSER/$name"
     echo "=== [$idx] $repo"
     # existing open PR from our branch? then skip
-    if gh pr list --repo "$repo" --head "$GHUSER:$BRANCH" --json number -q '.[].number' 2>/dev/null | grep -q .; then
+    if gh pr list --repo "$repo" --head "$GHUSER:$BRANCH" --json number --jq '.[].number' 2>/dev/null | grep -q .; then
       echo "    PR already open, skipping"; continue
     fi
     # fork (if missing) and clone
@@ -71,13 +72,17 @@ main() {
     rm -rf "$dir"
     git clone -q "git@github.com:$fork.git" "$dir"
     cd "$dir"
-    git checkout -q -b "$BRANCH"
+    git checkout -q -B "$BRANCH" "origin/$BRANCH" 2>/dev/null || git checkout -q -b "$BRANCH"
     insert_after_anchor README.md "$anchor" "$entry"
-    git add README.md
-    git commit -q -m "Add Sounds of the Adriatic sound map"
+    if git diff --quiet; then
+      echo "    entry already present on branch, no new commit"
+    else
+      git add README.md
+      git commit -q -m "Add Sounds of the Adriatic sound map"
+    fi
     git push -q origin "$BRANCH"
     local prurl
-    prurl=$(gh pr create --repo "$repo" --head "$GHUSER:$BRANCH" --title "$PR_TITLE" --body "$PR_BODY" -q .url)
+    prurl=$(gh pr create --repo "$repo" --head "$GHUSER:$BRANCH" --title "$PR_TITLE" --body "$PR_BODY" 2>/dev/null | tail -n1)
     echo "    PR opened: $prurl"
     cd - >/dev/null
   done
