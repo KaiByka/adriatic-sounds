@@ -95,12 +95,22 @@
     -webkit-backdrop-filter: blur(18px) saturate(1.35); backdrop-filter: blur(18px) saturate(1.35);
     border: 1px solid rgba(216,162,74,.18); border-radius: 20px;
     padding: 12px 22px 18px; box-shadow: 0 24px 70px rgba(0,0,0,.55);
+    /* hidden bottom sheet until a pin is tapped (or a deep link opens it) */
+    transform: translateY(calc(100% + 30px)); visibility: hidden;
+    transition: transform .4s cubic-bezier(.32,.72,.24,1), visibility 0s linear .4s;
   }
+  .card.open { transform: translateY(0); visibility: visible; transition: transform .4s cubic-bezier(.32,.72,.24,1); }
+  .card-close {
+    position: absolute; top: 8px; right: 10px; width: 44px; height: 44px;
+    border-radius: 50%; border: 1px solid var(--line); background: rgba(6,15,29,.4);
+    color: var(--muted); font: 400 22px/1 system-ui, sans-serif; cursor: pointer;
+  }
+  .card-close:hover, .card-close:focus-visible { color: var(--text); border-color: var(--accent); outline: none; }
   @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .card { background: #0d1830; } }
   .card::before { content: ""; display: block; width: 44px; height: 4px; border-radius: 99px; background: rgba(143,160,184,.35); margin: 0 auto 12px; }
   .card.swap { animation: cardIn .35s ease; }
   @keyframes cardIn { from { transform: translateY(10px); opacity: .4; } }
-  .card h2 { font: italic 700 22px/1.3 var(--serif); }
+  .card h2 { font: italic 700 22px/1.3 var(--serif); padding-right: 48px; }
   .card .meta { color: var(--accent); font-size: 13.5px; margin: 2px 0 8px; letter-spacing: .04em; }
   .card p#c-desc { color: var(--muted); font-size: 15px; max-width: 72ch; }
   #c-wave { display: none; width: 100%; height: 46px; margin-top: 12px; }
@@ -125,6 +135,7 @@
   .credit { font-size: 12.5px; color: #5f7290; margin-top: 12px; line-height: 1.55; }
   .credit a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted rgba(216,162,74,.5); }
   .badge { display: inline-block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; padding: 2px 8px; vertical-align: middle; margin-left: 8px; }
+  .badge[hidden] { display: none; } /* author display would otherwise override the hidden attribute */
 
   footer { text-align: center; padding: 26px 16px 40px; color: #5f7290; font-size: 14px; border-top: 1px solid var(--line); margin-top: 28px; position: relative; z-index: 1; }
   footer a { color: var(--muted); }
@@ -195,6 +206,7 @@
 </div>
 
 <aside class="card" id="card" aria-live="polite">
+  <button class="card-close" id="c-close" aria-label="Close player">×</button>
   <h2><span id="c-name"></span><span class="badge" id="c-badge" hidden>not yet recorded</span></h2>
   <div class="meta" id="c-meta"></div>
   <p id="c-desc"></p>
@@ -347,8 +359,8 @@ function drawPins() {
     const label = el('text', { x: x + 10, y: y - 10 }, g);
     label.textContent = p.place.split(',')[0];
     el('circle', { 'class': 'hit', cx: x, cy: y, r: 22 }, g);
-    g.addEventListener('click', () => select(p.key));
-    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(p.key); } });
+    g.addEventListener('click', () => select(p.key, { open: true }));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(p.key, { open: true }); } });
     pinEls[p.key] = g;
     if (!reduced) {
       g.style.transitionDelay = (i * 70) + 'ms';
@@ -417,6 +429,7 @@ function select(key, opts) {
   btn.classList.remove('playing');
   btn.textContent = current.audio ? 'Play' : 'Not yet recorded';
   if (location.hash !== 'sound=' + current.key) location.hash = 'sound=' + current.key;
+  if (opts && opts.open) card.classList.add('open');
   card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
   if (opts && opts.scroll) {
     const pe = pinEls[current.key];
@@ -428,17 +441,21 @@ function select(key, opts) {
 
 function wireHash() {
   const m = location.hash.match(/sound=([\w-]+)/);
-  if (m && PINS.some(p => p.key === m[1])) select(m[1], { scroll: true });
-  else select(PINS[1] ? PINS[1].key : null);
+  if (m && PINS.some(p => p.key === m[1])) select(m[1], { scroll: true, open: true }); /* deep link = intent to hear it */
+  else select(PINS[1] ? PINS[1].key : null); /* initial auto-select: pin highlighted, card stays closed */
   window.addEventListener('hashchange', () => {
     const h = location.hash.match(/sound=([\w-]+)/);
-    if (h && PINS.some(p => p.key === h[1]) && (!current || current.key !== h[1])) select(h[1], { scroll: true });
+    if (h && PINS.some(p => p.key === h[1]) && (!current || current.key !== h[1])) select(h[1], { scroll: true, open: true });
   });
 }
+/* close the sheet via the × button or by tapping the sea */
+$('c-close').addEventListener('click', () => { audio.pause(); card.classList.remove('open'); });
+svg.addEventListener('click', e => { if (!e.target.closest('.pin')) card.classList.remove('open'); });
 
 /* ---------- connector line from active pin to the card ---------- */
 function updateConnector() {
   if (!current) { connector.setAttribute('d', ''); return; }
+  if (!card.classList.contains('open')) { connector.style.opacity = '0'; return; }
   const srect = svg.getBoundingClientRect(), crect = card.getBoundingClientRect();
   if (!srect.width) return;
   const scale = srect.width / W;
