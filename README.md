@@ -19,13 +19,15 @@ adriatic-sounds/
 ├── README.md            ← this file
 ├── AGENTS.md            ← agent contract (licenses and audio budgets are the hard part)
 ├── site/                ← the deployed site (vanilla HTML/CSS/JS, no framework, no build)
-│   ├── index.html       ← map render, pin cards, audio player UI + static sound index + JSON-LD
-│   ├── robots.txt / sitemap.xml / llms.txt / 404.html  ← SEO/GEO files (scripts/build-seo.py)
-│   ├── og-image.png     ← social share card (scripts/make-og-image.py)
+│   ├── index.html       ← map, pin sheet, static sound index, About/FAQ, JSON-LD (SEO/GEO files below)
+│   ├── s/<key>.html     ← one static SEO page per pin (player, credits, JSON-LD) — scripts/build-seo.py
+│   ├── credits.html     ← human-readable license table from the manifest — scripts/build-seo.py
+│   ├── robots.txt / sitemap.xml / llms.txt / 404.html / og-image.png / apple-touch-icon.png
 │   ├── audio/           ← the sounds (committed, per-file budgeted)
 │   ├── data/            ← pins.json, places.json, coastline.json (Natural Earth, public domain, pre-clipped)
 │   └── LICENSE-MANIFEST.json  ← every sound + license + attribution + source URL
-├── scripts/             ← build-time tools (build-seo.py, clip-coastline.py, make-og-image.py, fetch-freesound.py)
+├── scripts/             ← build-time tools (build-seo.py, clip-coastline.py, make-og-image.py,
+│                          make-icon.py, fetch-freesound.py) — rerun build-seo.py after changing pins/manifest
 └── docs/
     └── sourcing.md      ← Freesound workflow, license rules, recording guide
 ```
