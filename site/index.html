@@ -67,7 +67,7 @@
   .sheen { pointer-events: none; }
   .grat line { stroke: #1c2c48; stroke-width: .6; opacity: .6; }
   .grat text { font: 9px system-ui, sans-serif; fill: #8fa0b8; }
-  .land { fill: url(#landGrad); stroke: #2b4166; stroke-width: .7; stroke-linejoin: round; }
+  .land { fill: url(#landGrad); fill-rule: evenodd; stroke: #33507e; stroke-width: .9; stroke-linejoin: round; }
   .coast-glow { fill: none; stroke: rgba(216,162,74,.55); stroke-width: 2.4; filter: url(#blurGlow); opacity: .3; pointer-events: none; }
   .coast-draw { fill: none; stroke: #e9bd6d; stroke-width: 1.3; stroke-linecap: round; pointer-events: none; }
   .places .city-dot { fill: #54688a; }
@@ -560,12 +560,13 @@ function drawLand(fc) {
     dp.style.strokeDashoffset = len;
   }
   requestAnimationFrame(() => requestAnimationFrame(() => {
-    for (const dp of drawPaths) {
-      dp.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) .15s, opacity .9s ease 1.5s';
+    drawPaths.forEach((dp, i) => {
+      const delay = (0.15 + Math.min(i * 0.02, 0.9)).toFixed(2); /* cascade the draw-on across islands */
+      dp.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) ' + delay + 's, opacity .9s ease ' + (parseFloat(delay) + 1.35).toFixed(2) + 's';
       dp.style.strokeDashoffset = '0';
       dp.style.opacity = '0';
-    }
-    setTimeout(() => drawPaths.forEach(dp => dp.remove()), 2600);
+    });
+    setTimeout(() => drawPaths.forEach(dp => dp.remove()), 3600);
   }));
 }
 function drawPlaces(p) {
