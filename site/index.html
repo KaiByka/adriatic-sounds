@@ -65,19 +65,19 @@
   }
   .sheen { pointer-events: none; }
   .grat line { stroke: #1c2c48; stroke-width: .6; opacity: .6; }
-  .grat text { font: 9px system-ui, sans-serif; fill: #3a4f74; }
+  .grat text { font: 9px system-ui, sans-serif; fill: #8fa0b8; }
   .land { fill: url(#landGrad); stroke: #2b4166; stroke-width: .7; stroke-linejoin: round; }
   .coast-glow { fill: none; stroke: rgba(216,162,74,.55); stroke-width: 2.4; filter: url(#blurGlow); opacity: .3; pointer-events: none; }
   .coast-draw { fill: none; stroke: #e9bd6d; stroke-width: 1.3; stroke-linecap: round; pointer-events: none; }
   .places .city-dot { fill: #54688a; }
   .places .city { font: 10px system-ui, sans-serif; fill: #7d92b3; paint-order: stroke; stroke: #060f1d; stroke-width: 3px; }
-  .places .region { font: italic 13px Georgia, serif; fill: #5f7290; letter-spacing: .22em; opacity: .8; }
-  .places .sea { font: 11px system-ui, sans-serif; fill: #42597e; letter-spacing: .55em; opacity: .9; }
-  .furniture .compass-ring { fill: rgba(6,15,29,.55); stroke: #3a4f74; stroke-width: 1; }
+  .places .region { font: italic 13px Georgia, serif; fill: #8fa0b8; letter-spacing: .22em; opacity: .8; }
+  .places .sea { font: 11px system-ui, sans-serif; fill: #8fa0b8; letter-spacing: .55em; opacity: .9; }
+  .furniture .compass-ring { fill: rgba(6,15,29,.55); stroke: #54688a; stroke-width: 1; }
   .furniture .compass-arrow { fill: var(--accent); }
   .furniture .compass-n { font: 700 10px system-ui, sans-serif; fill: #8fa0b8; }
-  .furniture .scale-bar { stroke: #3a4f74; stroke-width: 1.6; }
-  .furniture .scale-label { font: 9px system-ui, sans-serif; fill: #3a4f74; }
+  .furniture .scale-bar { stroke: #54688a; stroke-width: 1.6; }
+  .furniture .scale-label { font: 9px system-ui, sans-serif; fill: #8fa0b8; }
   #connector {
     fill: none; stroke: var(--accent); stroke-width: 1.1; stroke-dasharray: 2 6; stroke-linecap: round;
     opacity: 0; transition: opacity .4s; pointer-events: none;
@@ -146,7 +146,7 @@
   .time { font: 12px system-ui, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 86px; text-align: right; }
   .bridge { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
   .bridge a { color: var(--teal); text-decoration: none; border-bottom: 1px dotted rgba(87,199,201,.5); }
-  .credit { font-size: 12.5px; color: #5f7290; margin-top: 12px; line-height: 1.55; }
+  .credit { font-size: 12.5px; color: #7288a6; margin-top: 12px; line-height: 1.55; }
   .credit a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted rgba(216,162,74,.5); }
   .badge { display: inline-block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; padding: 2px 8px; vertical-align: middle; margin-left: 8px; }
   .badge[hidden] { display: none; } /* author display would otherwise override the hidden attribute */
@@ -162,7 +162,7 @@
   .index .idx-link:hover { color: var(--accent); }
   .index .idx-place { color: var(--accent); font-size: 12.5px; margin-left: 8px; }
   .index li p { color: var(--muted); font-size: 13.5px; margin-top: 6px; }
-  .index .idx-credit { font-size: 12px; color: #5f7290; }
+  .index .idx-credit { font-size: 12px; color: #7288a6; }
   .index .idx-credit a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted rgba(216,162,74,.5); }
 
   .about { max-width: 760px; margin: 44px auto 0; padding: 0 16px 8px; position: relative; z-index: 1; }
@@ -173,7 +173,7 @@
   .about summary { cursor: pointer; font-weight: 600; color: var(--text); }
   .about details p { margin-top: 8px; font-size: 14px; }
 
-  footer { text-align: center; padding: 26px 16px 40px; color: #5f7290; font-size: 14px; border-top: 1px solid var(--line); margin-top: 28px; position: relative; z-index: 1; }
+  footer { text-align: center; padding: 26px 16px 40px; color: #7288a6; font-size: 14px; border-top: 1px solid var(--line); margin-top: 28px; position: relative; z-index: 1; }
   footer a { color: var(--muted); }
   footer .fine { margin-top: 8px; font-size: 12px; }
   noscript p { text-align: center; color: var(--muted); padding: 20px; }
@@ -481,7 +481,7 @@ function drawFurniture() {
 /* ---------- pins ---------- */
 function drawPins() {
   PINS.forEach((p, i) => {
-    const link = el('a', { href: '#sound=' + p.key, 'class': 'pin-link', tabindex: '0', role: 'button', 'aria-label': p.name + ' — ' + p.place }, gPins);
+    const link = el('a', { href: '#sound=' + p.key, 'class': 'pin-link', tabindex: '0', 'aria-label': p.name + ' — ' + p.place }, gPins);
     const g = el('g', { 'class': 'pin' + (p.audio ? '' : ' pending') }, link);
     g.dataset.key = p.key;
     const x = PX(p.lon), y = PY(p.lat);

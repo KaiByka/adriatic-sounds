@@ -36,6 +36,8 @@ adriatic-sounds/
 
 Agents do all coding; read `AGENTS.md` first. Sprint 1: replace placeholder sounds with >= 10 real CC0/CC-BY recordings from Freesound. Sprint 2: the maker's own recorded sounds and >= 20 pins. Sprint 3: launch kit (OG image, press stills, suggested captions).
 
+Every push runs Lighthouse CI (mobile, `.lighthouserc.json`: performance >= 85, a11y/best-practices/SEO >= 90) against `site/` served locally, and the Pages deploy only runs if it passes.
+
 ## Attribution (footer, all pages)
 
 "A MareSpot experiment — live Adriatic wind, shelter & sea temperature at [marespot.com](https://marespot.com)"

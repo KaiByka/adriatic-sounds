@@ -3,7 +3,7 @@ name: Deploy site
 on:
   push:
     branches: [main]
-    paths: ['site/**', '.github/workflows/deploy.yml']
+    paths: ['site/**', '.github/workflows/deploy.yml', '.lighthouserc.json']
   workflow_dispatch:
 
 permissions:
@@ -16,7 +16,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # AGENTS.md: Lighthouse mobile >= 85. Gate the deploy on it: the site is served
+  # locally from ./site (no audio is ever fetched — nothing autoplays), mobile
+  # emulation, 3 runs per URL, hard asserts below.
+  lighthouse:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: treosh/lighthouse-ci-action@v10
+        with:
+          configPath: ./.lighthouserc.json
+          uploadArtifacts: true
+
   deploy:
+    needs: lighthouse
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
