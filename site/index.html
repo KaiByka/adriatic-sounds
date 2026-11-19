@@ -79,9 +79,18 @@
   .furniture .compass-n { font: 700 10px system-ui, sans-serif; fill: #8fa0b8; }
   .furniture .scale-bar { stroke: #54688a; stroke-width: 1.6; }
   .furniture .scale-label { font: 9px system-ui, sans-serif; fill: #8fa0b8; }
+  #connector-glow {
+    fill: none; stroke: var(--accent); stroke-width: 6.5; stroke-linecap: round;
+    opacity: 0; transition: opacity .4s; pointer-events: none;
+  }
   #connector {
     fill: none; stroke: var(--accent); stroke-width: 1.1; stroke-dasharray: 2 6; stroke-linecap: round;
     opacity: 0; transition: opacity .4s; pointer-events: none;
+  }
+  #connector-node {
+    fill: var(--accent); stroke: #0a0f16; stroke-width: 1.2;
+    opacity: 0; transition: opacity .3s; pointer-events: none;
+    transform-box: fill-box; transform-origin: center;
   }
 
   .pin-link { outline: none; cursor: pointer; }
@@ -200,7 +209,9 @@
     .pin.playing .eq rect:nth-child(2) { animation-delay: .22s; }
     .pin.playing .eq rect:nth-child(3) { animation-delay: .45s; }
     #connector { animation: march 1.4s linear infinite; }
+    #connector-node.ping { animation: nodeping .5s cubic-bezier(.34,1.56,.64,1); }
   }
+  @keyframes nodeping { from { transform: scale(2.6); } }
   @keyframes sheen { from { transform: translateX(-460px); } to { transform: translateX(1460px); } }
   @keyframes pulse { 0% { transform: scale(.55); opacity: .85; } 100% { transform: scale(2.4); opacity: 0; } }
   @keyframes eqbar { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
@@ -209,6 +220,8 @@
     .pin { transition: none; } .pin .dot, .pin .glow, .pin .ring, .pin text { transition: none; }
     .card, .card.open, .card.open.flying { transition: none; }
     .card.swap { animation: none; }
+    #connector, #connector-glow { animation: none; }
+    #connector-node.ping { animation: none; }
   }
 </style>
 </head>
@@ -251,7 +264,9 @@
     <g id="grat"></g>
     <g id="land"></g>
     <g id="places" class="places"></g>
+    <path id="connector-glow" d=""/>
     <path id="connector" d=""/>
+    <circle id="connector-node" r="3.4" cx="-99" cy="-99"/>
     <g id="furniture" class="furniture"></g>
     <g id="pins"></g>
   </svg>
@@ -476,7 +491,8 @@ const PX = lon => (lon - LON0) / (LON1 - LON0) * W;
 const PY = lat => (LAT1 - lat) / (LAT1 - LAT0) * H;
 const $ = id => document.getElementById(id);
 const svg = $('map'), gGrat = $('grat'), gLand = $('land'), gPlaces = $('places'),
-      gFurn = $('furniture'), gPins = $('pins'), connector = $('connector'), card = $('card');
+      gFurn = $('furniture'), gPins = $('pins'), connector = $('connector'),
+      connGlow = $('connector-glow'), connNode = $('connector-node'), card = $('card');
 const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 function el(n, attrs, parent) {
   const e = document.createElementNS(NS, n);
@@ -705,8 +721,18 @@ function select(key, opts) {
     const pe = pinEls[current.key];
     if (pe) pe.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
   }
-  updateConnector();
   placeCard();
+  if (card.classList.contains('open') && desktopMQ.matches) {
+    /* desktop: line chases the gliding panel, then bounces to rest */
+    if (!reduced) {
+      let h = 0; for (const c of current.key) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+      connSagV = (h % 2 ? 1 : -1) * 60; /* deterministic impulse direction per pin */
+      connNode.classList.remove('ping'); void connNode.getBoundingClientRect(); connNode.classList.add('ping');
+    }
+    trackConnector(wasOpen ? 640 : 500);
+  } else {
+    updateConnector();
+  }
 }
 
 /* deep links work as #sound=<key> and as ?sound=<key> */
@@ -728,16 +754,22 @@ function wireHash() {
   window.addEventListener('popstate', onNav);
 }
 /* close the sheet via the × button or by tapping the sea */
-function closeCard() { audio.pause(); card.classList.remove('open'); document.body.classList.remove('sheet-open'); }
+function closeCard() { audio.pause(); card.classList.remove('open'); document.body.classList.remove('sheet-open'); cancelAnimationFrame(connTrack); hideConnector(); }
 $('c-close').addEventListener('click', closeCard);
 svg.addEventListener('click', e => { if (!e.target.closest('.pin')) closeCard(); });
 
 /* ---------- connector line from active pin to the card ---------- */
+/* spring state for the curve's sag: an impulse on each pin switch makes it bounce */
+let connSag = 40, connSagV = 0, connTrack = 0;
+function hideConnector() {
+  connector.setAttribute('d', ''); connGlow.setAttribute('d', '');
+  connector.style.opacity = '0'; connGlow.style.opacity = '0'; connNode.style.opacity = '0';
+}
 function updateConnector() {
-  if (!current) { connector.setAttribute('d', ''); return; }
-  if (!card.classList.contains('open')) { connector.style.opacity = '0'; return; }
-  const srect = svg.getBoundingClientRect(), crect = card.getBoundingClientRect();
+  if (!current || !card.classList.contains('open')) { hideConnector(); return; }
+  const srect = svg.getBoundingClientRect();
   if (!srect.width) return;
+  const crect = card.getBoundingClientRect();
   const scale = srect.width / W;
   const pp = pinPos[current.key] || { x: PX(current.lon), y: PY(current.lat) };
   const x = pp.x, y = pp.y;
@@ -746,10 +778,32 @@ function updateConnector() {
   const ct = (crect.top - srect.top) / scale, cb = (crect.bottom - srect.top) / scale;
   const tx = Math.max(cl, Math.min(cr, x));
   const ty = Math.max(ct, Math.min(cb, y));
-  if (Math.hypot(tx - x, ty - y) < 10) { connector.style.opacity = '0'; return; } /* pin under the card */
-  const mx = (x + tx) / 2, my = Math.min(y, ty) - 40;
-  connector.setAttribute('d', 'M' + x.toFixed(1) + ' ' + y.toFixed(1) + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1));
-  connector.style.opacity = '.55';
+  const dist = Math.hypot(tx - x, ty - y);
+  if (dist < 10) { hideConnector(); return; } /* pin under the card */
+  const target = Math.min(84, 26 + dist * 0.09); /* sag grows with distance */
+  if (reduced) connSag = target;
+  else { connSagV += (target - connSag) * 0.14; connSagV *= 0.68; connSag += connSagV; }
+  const mx = (x + tx) / 2, my = Math.min(y, ty) - connSag;
+  const d = 'M' + x.toFixed(1) + ' ' + y.toFixed(1) + ' Q' + mx.toFixed(1) + ' ' + my.toFixed(1) + ' ' + tx.toFixed(1) + ' ' + ty.toFixed(1);
+  connector.setAttribute('d', d);
+  connGlow.setAttribute('d', d);
+  /* plug dot just outside the panel edge, on the pin->card axis, so the line visibly docks */
+  const ux = (tx - x) / dist, uy = (ty - y) / dist;
+  connNode.setAttribute('cx', (tx + ux * 4.5).toFixed(1));
+  connNode.setAttribute('cy', (ty + uy * 4.5).toFixed(1));
+  connector.style.opacity = '.6';
+  connGlow.style.opacity = '.13';
+  connNode.style.opacity = '1';
+}
+/* re-aim the line every frame while the panel glides / settles */
+function trackConnector(ms) {
+  cancelAnimationFrame(connTrack);
+  const t0 = performance.now();
+  const step = () => {
+    updateConnector();
+    if (performance.now() - t0 < ms) connTrack = requestAnimationFrame(step);
+  };
+  connTrack = requestAnimationFrame(step);
 }
 
 /* ---------- desktop floating callout placement ---------- */
@@ -779,8 +833,8 @@ function placeCard() {
   card.style.bottom = 'auto';
   card.style.transformOrigin = left > pinX ? '0% 50%' : '100% 50%'; /* pop grows from the pin side */
 }
-window.addEventListener('scroll', () => { updateConnector(); placeCard(); }, { passive: true });
-window.addEventListener('resize', () => { updateHitRadius(); updateConnector(); placeCard(); drawWave(); });
+window.addEventListener('scroll', () => { placeCard(); updateConnector(); }, { passive: true });
+window.addEventListener('resize', () => { updateHitRadius(); placeCard(); updateConnector(); drawWave(); });
 
 /* ---------- audio transport ---------- */
 function fmt(s) { s = Math.floor(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
