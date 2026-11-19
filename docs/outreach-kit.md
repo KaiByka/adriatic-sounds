@@ -44,6 +44,8 @@ Everything you need is already live and linkable:
 |---|---|---|---|
 | 1 | **Awesome-list PRs** (GitHub) — see the concrete repo list below | one-line PR adding the link + 25-word pitch | highest-quality, permanent, dofollow links; read each repo's contribution rules |
 
+**Prepared and ready to submit:** `docs/awesome-pr-targets.md` lists 4 vetted, alive lists with the exact section, anchor line and entry line for each; `scripts/submit-awesome-prs.sh` forks → branches → inserts → pushes → opens all PRs in one run (needs `gh auth login -h github.com` once; insertion logic tested against the live READMEs). Run: `bash scripts/submit-awesome-prs.sh`.
+
 Concrete awesome-list targets (verified to exist; check they're still active — recent commits/merged PRs — before PRing):
 
 - `landscape82/awesome-sound-design-resources` — has a **Maps** section (lists radio aporee's sound map there) → add us next to it
