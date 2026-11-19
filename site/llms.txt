@@ -16,8 +16,10 @@ commercial product). Machine-readable list: https://sound.marespot.com/LICENSE-M
 
 ## Sounds
 
-1. **The sea organ** — Zadar (44.12°N 15.22°E). Waves play the organ: sea-driven pipes tuned to tones. The best sound-object on the coast.
-   Status: not yet recorded (the maker's own recording is planned here).
+1. **The sea organ** — Zadar seafront (44.12°N 15.22°E). Waves push air through the seafront pipes of Zadar's Morske orgulje. Recorded in summer — the organ mixed with the voices of passers-by, as the recordist notes.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: LukaCafuka (Freesound).
+   Page: https://sound.marespot.com/s/zadar-organ.html · on the map: https://sound.marespot.com/#sound=zadar-organ (also ?sound=zadar-organ) · file: https://sound.marespot.com/audio/zadar-organ.opus (1:29, 361 KB, Opus mono)
+   Source: https://freesound.org/people/LukaCafuka/sounds/750686/
 
 2. **Wind in the rigging** — Marina Kornati, Biograd na Moru (43.94°N 15.44°E). A working north-easterly worrying the masts and halyards in the marina — the same voice the bura has in Senj.
    License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: zybil (Freesound).
@@ -73,6 +75,96 @@ commercial product). Machine-readable list: https://sound.marespot.com/LICENSE-M
    License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: VlatkoBlazek (Freesound).
    Page: https://sound.marespot.com/s/stari-grad-cicadas.html · on the map: https://sound.marespot.com/#sound=stari-grad-cicadas (also ?sound=stari-grad-cicadas) · file: https://sound.marespot.com/audio/stari-grad-cicadas.opus (1:13, 364 KB, Opus mono)
    Source: https://freesound.org/people/VlatkoBlazek/sounds/262906/
+
+13. **Underwater in a stony bay** — Zadar (44.15°N 15.26°E). A speedboat approaching from far away, recorded underwater in a stony bay in Zadar.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: floisawilson (Freesound).
+   Page: https://sound.marespot.com/s/zadar-underwater.html · on the map: https://sound.marespot.com/#sound=zadar-underwater (also ?sound=zadar-underwater) · file: https://sound.marespot.com/audio/zadar-underwater.opus (1:29, 307 KB, Opus mono)
+   Source: https://freesound.org/people/floisawilson/sounds/870983/
+
+14. **Busy streets of Zadar** — Zadar (44.11°N 15.23°E). Walking through the busy summer streets of Zadar.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: LukaCafuka (Freesound).
+   Page: https://sound.marespot.com/s/zadar-streets.html · on the map: https://sound.marespot.com/#sound=zadar-streets (also ?sound=zadar-streets) · file: https://sound.marespot.com/audio/zadar-streets.opus (0:40, 142 KB, Opus mono)
+   Source: https://freesound.org/people/LukaCafuka/sounds/750688/
+
+15. **Waves at the wharf** — Brela, Makarska rivijera (43.38°N 16.91°E). Waves at the wharf in Brela, on the Makarska rivijera.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: blaukreuz (Freesound).
+   Page: https://sound.marespot.com/s/brela-wharf.html · on the map: https://sound.marespot.com/#sound=brela-wharf (also ?sound=brela-wharf) · file: https://sound.marespot.com/audio/brela-wharf.opus (0:54, 194 KB, Opus mono)
+   Source: https://freesound.org/people/blaukreuz/sounds/162696/
+
+16. **Wind on Biokovo** — Biokovo mountain, above Brela (43.41°N 16.90°E). Wind on the slopes of Biokovo, the mountain above Brela.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: blaukreuz (Freesound).
+   Page: https://sound.marespot.com/s/biokovo-wind.html · on the map: https://sound.marespot.com/#sound=biokovo-wind (also ?sound=biokovo-wind) · file: https://sound.marespot.com/audio/biokovo-wind.opus (0:56, 193 KB, Opus mono)
+   Source: https://freesound.org/people/blaukreuz/sounds/195731/
+
+17. **Waves and a distant ship** — Pakoštane (43.92°N 15.52°E). Waves and a ship in the distance near camp Kozarica, Pakoštane.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: vkrajcin (Freesound).
+   Page: https://sound.marespot.com/s/pakostane-waves.html · on the map: https://sound.marespot.com/#sound=pakostane-waves (also ?sound=pakostane-waves) · file: https://sound.marespot.com/audio/pakostane-waves.opus (1:02, 244 KB, Opus mono)
+   Source: https://freesound.org/people/vkrajcin/sounds/672852/
+
+18. **Waves on the rocks of Vis** — Island of Vis (43.02°N 16.21°E). Waves on the rocky seashore of the island of Vis.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: ivolipa (Freesound).
+   Page: https://sound.marespot.com/s/vis-waves.html · on the map: https://sound.marespot.com/#sound=vis-waves (also ?sound=vis-waves) · file: https://sound.marespot.com/audio/vis-waves.opus (1:15, 268 KB, Opus mono)
+   Source: https://freesound.org/people/ivolipa/sounds/368317/
+
+19. **Calm sea at Mljet** — Mljet National Park (42.79°N 17.38°E). Small waves on the rocky shore of the calm summer sea, distant crickets in the background. Recorded in Mljet National Park.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: Znalac (Freesound).
+   Page: https://sound.marespot.com/s/mljet-calm-sea.html · on the map: https://sound.marespot.com/#sound=mljet-calm-sea (also ?sound=mljet-calm-sea) · file: https://sound.marespot.com/audio/mljet-calm-sea.opus (1:29, 337 KB, Opus mono)
+   Source: https://freesound.org/people/Znalac/sounds/163696/
+
+20. **Smooth waves at Novigrad** — Novigrad, Istria (45.32°N 13.56°E). Soft Adriatic waves on the beach at Novigrad (Cittanova), Istria.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: pkanduth (Freesound).
+   Page: https://sound.marespot.com/s/novigrad-waves.html · on the map: https://sound.marespot.com/#sound=novigrad-waves (also ?sound=novigrad-waves) · file: https://sound.marespot.com/audio/novigrad-waves.opus (1:16, 292 KB, Opus mono)
+   Source: https://freesound.org/people/pkanduth/sounds/444217/
+
+21. **Church bell in Lumbarda** — Lumbarda, island of Korčula (42.92°N 17.18°E). Church bell in Lumbarda on the island of Korčula, recorded on a DPA-4017 into an SQN-IVs and Edirol R-44.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: sinewave1kHz (Freesound).
+   Page: https://sound.marespot.com/s/lumbarda-bell.html · on the map: https://sound.marespot.com/#sound=lumbarda-bell (also ?sound=lumbarda-bell) · file: https://sound.marespot.com/audio/lumbarda-bell.opus (1:29, 492 KB, Opus mono)
+   Source: https://freesound.org/people/sinewave1kHz/sounds/207436/
+
+22. **Morning bell in Sepurine** — Sepurine, near Vodice (43.73°N 15.79°E). Early-morning church bell in Sepurine near Vodice, recorded on a DPA-4017 into an SD-552.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: sinewave1kHz (Freesound).
+   Page: https://sound.marespot.com/s/vodice-bell.html · on the map: https://sound.marespot.com/#sound=vodice-bell (also ?sound=vodice-bell) · file: https://sound.marespot.com/audio/vodice-bell.opus (0:42, 165 KB, Opus mono)
+   Source: https://freesound.org/people/sinewave1kHz/sounds/207355/
+
+23. **Bell of St. Joseph, Vela Luka** — Vela Luka, island of Korčula (42.96°N 16.72°E). Bell of St. Joseph Church in Vela Luka, Korčula.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: GirlWithSoundRecorder (Freesound).
+   Page: https://sound.marespot.com/s/vela-luka-bell.html · on the map: https://sound.marespot.com/#sound=vela-luka-bell (also ?sound=vela-luka-bell) · file: https://sound.marespot.com/audio/vela-luka-bell.opus (1:29, 389 KB, Opus mono)
+   Source: https://freesound.org/people/GirlWithSoundRecorder/sounds/752358/
+
+24. **Dawn cicadas** — Sveta Nedjelja, island of Hvar (43.14°N 16.59°E). Dawn cicada soundscape — early-morning ambience on Hvar.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: GirlWithSoundRecorder (Freesound).
+   Page: https://sound.marespot.com/s/dawn-cicadas.html · on the map: https://sound.marespot.com/#sound=dawn-cicadas (also ?sound=dawn-cicadas) · file: https://sound.marespot.com/audio/dawn-cicadas.opus (1:24, 330 KB, Opus mono)
+   Source: https://freesound.org/people/GirlWithSoundRecorder/sounds/827223/
+
+25. **Creek in Krka National Park** — Krka National Park (43.86°N 15.97°E). A close recording of the creek in Krka National Park.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: Dominik_W (Freesound).
+   Page: https://sound.marespot.com/s/krka-creek.html · on the map: https://sound.marespot.com/#sound=krka-creek (also ?sound=krka-creek) · file: https://sound.marespot.com/audio/krka-creek.opus (0:45, 153 KB, Opus mono)
+   Source: https://freesound.org/people/Dominik_W/sounds/398673/
+
+26. **Seagulls on the morning sea** — Kvarner (44.63°N 14.54°E). About ten seagulls floating on the calm morning sea, begging for fish (Kvarner). Mono recording, DPA-4017 into an SD-552.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: sinewave1kHz (Freesound).
+   Page: https://sound.marespot.com/s/kvarner-gulls.html · on the map: https://sound.marespot.com/#sound=kvarner-gulls (also ?sound=kvarner-gulls) · file: https://sound.marespot.com/audio/kvarner-gulls.opus (1:29, 355 KB, Opus mono)
+   Source: https://freesound.org/people/sinewave1kHz/sounds/202996/
+
+27. **The Riva at Split** — Split (43.51°N 16.44°E). The Split promenade (Riva) on a summer day.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: blaukreuz (Freesound).
+   Page: https://sound.marespot.com/s/split-promenade.html · on the map: https://sound.marespot.com/#sound=split-promenade (also ?sound=split-promenade) · file: https://sound.marespot.com/audio/split-promenade.opus (1:29, 318 KB, Opus mono)
+   Source: https://freesound.org/people/blaukreuz/sounds/195866/
+
+28. **Thunderstorm over Dubrovnik** — Dubrovnik (42.70°N 18.02°E). Big-storm thunder and heavy rain on a paved area outside Grand Hotel Park, Dubrovnik (Zoom H1).
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: freesoundjon01 (Freesound).
+   Page: https://sound.marespot.com/s/dubrovnik-thunder.html · on the map: https://sound.marespot.com/#sound=dubrovnik-thunder (also ?sound=dubrovnik-thunder) · file: https://sound.marespot.com/audio/dubrovnik-thunder.opus (0:35, 117 KB, Opus mono)
+   Source: https://freesound.org/people/freesoundjon01/sounds/323393/
+
+29. **Shipyard at San Trovaso** — Venice, Italy (across the Adriatic) (45.43°N 12.33°E). The squero (shipyard) of San Trovaso on the Venice lagoon — the Italian shore of the Adriatic.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: GammaSintesi (Freesound).
+   Page: https://sound.marespot.com/s/venice-squero.html · on the map: https://sound.marespot.com/#sound=venice-squero (also ?sound=venice-squero) · file: https://sound.marespot.com/audio/venice-squero.opus (1:29, 306 KB, Opus mono)
+   Source: https://freesound.org/people/GammaSintesi/sounds/707909/
+
+30. **Mercato Coperto** — Trieste, Italy (across the Adriatic) (45.65°N 13.78°E). Inside Trieste's covered market — the other shore of the northern Adriatic.
+   License: CC0 1.0 (https://creativecommons.org/publicdomain/zero/1.0/) — creator: nicotep (Freesound).
+   Page: https://sound.marespot.com/s/trieste-market.html · on the map: https://sound.marespot.com/#sound=trieste-market (also ?sound=trieste-market) · file: https://sound.marespot.com/audio/trieste-market.opus (1:29, 317 KB, Opus mono)
+   Source: https://freesound.org/people/nicotep/sounds/843240/
 
 ## How to attribute
 

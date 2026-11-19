@@ -80,8 +80,8 @@ FAQ = [
     {
         "q": "What is the sea organ in Zadar?",
         "a": ("The Morske orgulje is a wave-powered sound installation built into the Zadar waterfront: the sea "
-              "pushes air through tuned pipes. It is the most famous sound-object on the coast — and its pin is "
-              "honestly marked <b>not yet recorded</b> until the maker's own recording of it is published."),
+              "pushes air through tuned pipes. Its pin plays a <b>CC0 recording of the organ at the Zadar "
+              "seafront</b> — the recordist notes it is mixed with the voices of passers-by, as on a busy summer day."),
     },
     {
         "q": "Can I contribute a recording?",
@@ -396,7 +396,7 @@ def build_home_ld():
                         "description": "A sound map of the Croatian coast: free CC0/CC-BY field recordings of harbours, coves, wind, bells and open sea. Tap a pin, hear the place."},
         {"@type": "WebPage", "@id": BASE + "/#webpage", "url": BASE + "/",
          "name": "Sounds of the Adriatic — a sound map of the Croatian coast",
-         "description": "11 free CC-BY field recordings of the Croatian coast. Tap a pin to listen.",
+         "description": f"{sum(1 for p in pins if p.get('audio'))} free CC0/CC-BY field recordings of the Croatian coast. Tap a pin to listen.",
          "isPartOf": {"@id": BASE + "/#website"}, "primaryImageOfPage": BASE + "/og-image.png"},
     ]
     items = []

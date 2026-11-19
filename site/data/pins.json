@@ -2,10 +2,13 @@
  {
   "key": "zadar-organ",
   "name": "The sea organ",
-  "place": "Zadar",
+  "place": "Zadar seafront",
   "lat": 44.117,
   "lon": 15.219,
-  "desc": "Waves play the organ: sea-driven pipes tuned to tones. The best sound-object on the coast."
+  "desc": "Waves push air through the seafront pipes of Zadar's Morske orgulje. Recorded in summer — the organ mixed with the voices of passers-by, as the recordist notes.",
+  "audio": "audio/zadar-organ.opus",
+  "credit": "“Zadar sea organs” — recorded by LukaCafuka (Freesound), CC0 1.0. Recorded at 44.12N 15.22E (Zadar, Zadar, Croatia).",
+  "source": "https://freesound.org/people/LukaCafuka/sounds/750686/"
  },
  {
   "key": "senj-bura",
@@ -14,7 +17,11 @@
   "lat": 43.94,
   "lon": 15.44,
   "desc": "A working north-easterly worrying the masts and halyards in the marina — the same voice the bura has in Senj.",
-  "bridge": { "text": "Hear the wind here, then check the live Adriatic wind forecast", "url": "https://marespot.com", "label": "marespot.com" },
+  "bridge": {
+   "text": "Hear the wind here, then check the live Adriatic wind forecast",
+   "url": "https://marespot.com",
+   "label": "marespot.com"
+  },
   "audio": "audio/senj-bura.opus",
   "credit": "“Yachts in the wind I - Marina Kornati Biograd na Moru” — recorded by zybil (Freesound), CC-BY 4.0. Recorded 2020-11-10 at 43.94N 15.44E.",
   "source": "https://freesound.org/people/zybil/sounds/543767/"
@@ -128,5 +135,203 @@
   "audio": "audio/stari-grad-cicadas.opus",
   "credit": "“Cicada orni” — recorded by VlatkoBlazek (Freesound), CC-BY 4.0. Recorded 2015-02-02 at 43.27N 16.63E.",
   "source": "https://freesound.org/people/VlatkoBlazek/sounds/262906/"
+ },
+ {
+  "key": "zadar-underwater",
+  "name": "Underwater in a stony bay",
+  "place": "Zadar",
+  "lat": 44.145,
+  "lon": 15.255,
+  "desc": "A speedboat approaching from far away, recorded underwater in a stony bay in Zadar.",
+  "audio": "audio/zadar-underwater.opus",
+  "credit": "“Adriatic Sea, Zadar - Underwater, Speedboat approaching - Zoom H4n - Aquarian Hydraphone” — recorded by floisawilson (Freesound), CC0 1.0. Recorded at 44.14N 15.25E (Zadar, Zadar, Croatia).",
+  "source": "https://freesound.org/people/floisawilson/sounds/870983/"
+ },
+ {
+  "key": "zadar-streets",
+  "name": "Busy streets of Zadar",
+  "place": "Zadar",
+  "lat": 44.108,
+  "lon": 15.235,
+  "desc": "Walking through the busy summer streets of Zadar.",
+  "audio": "audio/zadar-streets.opus",
+  "credit": "“Busy streets of Zadar” — recorded by LukaCafuka (Freesound), CC0 1.0. Recorded at 44.12N 15.22E (Zadar, Zadar, Croatia).",
+  "source": "https://freesound.org/people/LukaCafuka/sounds/750688/"
+ },
+ {
+  "key": "brela-wharf",
+  "name": "Waves at the wharf",
+  "place": "Brela, Makarska rivijera",
+  "lat": 43.38,
+  "lon": 16.91,
+  "desc": "Waves at the wharf in Brela, on the Makarska rivijera.",
+  "audio": "audio/brela-wharf.opus",
+  "credit": "“120803_Brela_AT_Wharf_1_F_4824.wav” — recorded by blaukreuz (Freesound), CC0 1.0. Recorded at 43.38N 16.91E (Brela, Split-Dalmatia, Croatia).",
+  "source": "https://freesound.org/people/blaukreuz/sounds/162696/"
+ },
+ {
+  "key": "biokovo-wind",
+  "name": "Wind on Biokovo",
+  "place": "Biokovo mountain, above Brela",
+  "lat": 43.415,
+  "lon": 16.9,
+  "desc": "Wind on the slopes of Biokovo, the mountain above Brela.",
+  "audio": "audio/biokovo-wind.opus",
+  "credit": "“130721_Biokovo_4323085E1655413_F_4824.wav” — recorded by blaukreuz (Freesound), CC0 1.0. Recorded at 43.39N 16.92E (Brela, Split-Dalmatia, Croatia).",
+  "source": "https://freesound.org/people/blaukreuz/sounds/195731/"
+ },
+ {
+  "key": "pakostane-waves",
+  "name": "Waves and a distant ship",
+  "place": "Pakoštane",
+  "lat": 43.925,
+  "lon": 15.52,
+  "desc": "Waves and a ship in the distance near camp Kozarica, Pakoštane.",
+  "audio": "audio/pakostane-waves.opus",
+  "credit": "“waves and a boat in a distance.mp3” — recorded by vkrajcin (Freesound), CC0 1.0. Recorded at 43.91N 15.50E (Pakoštane, Zadar, Croatia).",
+  "source": "https://freesound.org/people/vkrajcin/sounds/672852/"
+ },
+ {
+  "key": "vis-waves",
+  "name": "Waves on the rocks of Vis",
+  "place": "Island of Vis",
+  "lat": 43.02,
+  "lon": 16.21,
+  "desc": "Waves on the rocky seashore of the island of Vis.",
+  "audio": "audio/vis-waves.opus",
+  "credit": "“strong_waves.wav” — recorded by ivolipa (Freesound), CC0 1.0. Recorded at 43.02N 16.21E (Vis, Split-Dalmatia, Croatia).",
+  "source": "https://freesound.org/people/ivolipa/sounds/368317/"
+ },
+ {
+  "key": "mljet-calm-sea",
+  "name": "Calm sea at Mljet",
+  "place": "Mljet National Park",
+  "lat": 42.79,
+  "lon": 17.38,
+  "desc": "Small waves on the rocky shore of the calm summer sea, distant crickets in the background. Recorded in Mljet National Park.",
+  "audio": "audio/mljet-calm-sea.opus",
+  "credit": "“Calm Mediterranean Sea.flac” — recorded by Znalac (Freesound), CC0 1.0. Recorded at 42.79N 17.38E (Dubrovnik-Neretva, Croatia).",
+  "source": "https://freesound.org/people/Znalac/sounds/163696/"
+ },
+ {
+  "key": "novigrad-waves",
+  "name": "Smooth waves at Novigrad",
+  "place": "Novigrad, Istria",
+  "lat": 45.32,
+  "lon": 13.56,
+  "desc": "Soft Adriatic waves on the beach at Novigrad (Cittanova), Istria.",
+  "audio": "audio/novigrad-waves.opus",
+  "credit": "“sea smooth waves novigrad” — recorded by pkanduth (Freesound), CC0 1.0. Recorded at 45.32N 13.56E (Novigrad - Cittanova, Istria, Croatia).",
+  "source": "https://freesound.org/people/pkanduth/sounds/444217/"
+ },
+ {
+  "key": "lumbarda-bell",
+  "name": "Church bell in Lumbarda",
+  "place": "Lumbarda, island of Korčula",
+  "lat": 42.92,
+  "lon": 17.18,
+  "desc": "Church bell in Lumbarda on the island of Korčula, recorded on a DPA-4017 into an SQN-IVs and Edirol R-44.",
+  "audio": "audio/lumbarda-bell.opus",
+  "credit": "“church_bell_1” — recorded by sinewave1kHz (Freesound), CC0 1.0. Recorded at 42.92N 17.18E (Lumbarda, Dubrovnik-Neretva, Croatia).",
+  "source": "https://freesound.org/people/sinewave1kHz/sounds/207436/"
+ },
+ {
+  "key": "vodice-bell",
+  "name": "Morning bell in Sepurine",
+  "place": "Sepurine, near Vodice",
+  "lat": 43.73,
+  "lon": 15.79,
+  "desc": "Early-morning church bell in Sepurine near Vodice, recorded on a DPA-4017 into an SD-552.",
+  "audio": "audio/vodice-bell.opus",
+  "credit": "“church_bell” — recorded by sinewave1kHz (Freesound), CC0 1.0. Recorded at 43.73N 15.79E (Vodice, Šibenik-Knin, Croatia).",
+  "source": "https://freesound.org/people/sinewave1kHz/sounds/207355/"
+ },
+ {
+  "key": "vela-luka-bell",
+  "name": "Bell of St. Joseph, Vela Luka",
+  "place": "Vela Luka, island of Korčula",
+  "lat": 42.96,
+  "lon": 16.72,
+  "desc": "Bell of St. Joseph Church in Vela Luka, Korčula.",
+  "audio": "audio/vela-luka-bell.opus",
+  "credit": "“Bell of St. Joseph Church, Vela Luka” — recorded by GirlWithSoundRecorder (Freesound), CC0 1.0. Recorded at 42.96N 16.72E (Vela Luka, Dubrovnik-Neretva, Croatia).",
+  "source": "https://freesound.org/people/GirlWithSoundRecorder/sounds/752358/"
+ },
+ {
+  "key": "dawn-cicadas",
+  "name": "Dawn cicadas",
+  "place": "Sveta Nedjelja, island of Hvar",
+  "lat": 43.14,
+  "lon": 16.59,
+  "desc": "Dawn cicada soundscape — early-morning ambience on Hvar.",
+  "audio": "audio/dawn-cicadas.opus",
+  "credit": "“🌅 Dawn Cicadas Soundscape 🦗 Early Morning Ambience from Hvar, Croatia 🏝️ Sveta Nedjelja” — recorded by GirlWithSoundRecorder (Freesound), CC0 1.0. Recorded at 43.14N 16.59E (Sveta Nedjelja, Split-Dalmatia, Croatia).",
+  "source": "https://freesound.org/people/GirlWithSoundRecorder/sounds/827223/"
+ },
+ {
+  "key": "krka-creek",
+  "name": "Creek in Krka National Park",
+  "place": "Krka National Park",
+  "lat": 43.86,
+  "lon": 15.97,
+  "desc": "A close recording of the creek in Krka National Park.",
+  "audio": "audio/krka-creek.opus",
+  "credit": "“Creek in Krka National Park, Croatia (Close recording)” — recorded by Dominik_W (Freesound), CC0 1.0. Recorded at 43.86N 15.97E (Drniš, Šibenik-Knin, Croatia).",
+  "source": "https://freesound.org/people/Dominik_W/sounds/398673/"
+ },
+ {
+  "key": "kvarner-gulls",
+  "name": "Seagulls on the morning sea",
+  "place": "Kvarner",
+  "lat": 44.63,
+  "lon": 14.54,
+  "desc": "About ten seagulls floating on the calm morning sea, begging for fish (Kvarner). Mono recording, DPA-4017 into an SD-552.",
+  "audio": "audio/kvarner-gulls.opus",
+  "credit": "“Seagulls.wav” — recorded by sinewave1kHz (Freesound), CC0 1.0. Recorded at 44.63N 14.54E (Primorje-Gorski Kotar, Croatia).",
+  "source": "https://freesound.org/people/sinewave1kHz/sounds/202996/"
+ },
+ {
+  "key": "split-promenade",
+  "name": "The Riva at Split",
+  "place": "Split",
+  "lat": 43.51,
+  "lon": 16.44,
+  "desc": "The Split promenade (Riva) on a summer day.",
+  "audio": "audio/split-promenade.opus",
+  "credit": "“130717_Split_Promenade1_F_4824.wav” — recorded by blaukreuz (Freesound), CC0 1.0. Recorded at 43.51N 16.44E (Split, Split-Dalmatia, Croatia).",
+  "source": "https://freesound.org/people/blaukreuz/sounds/195866/"
+ },
+ {
+  "key": "dubrovnik-thunder",
+  "name": "Thunderstorm over Dubrovnik",
+  "place": "Dubrovnik",
+  "lat": 42.7,
+  "lon": 18.02,
+  "desc": "Big-storm thunder and heavy rain on a paved area outside Grand Hotel Park, Dubrovnik (Zoom H1).",
+  "audio": "audio/dubrovnik-thunder.opus",
+  "credit": "“Heavy Rain Long Thunder Dubrovnik.WAV” — recorded by freesoundjon01 (Freesound), CC0 1.0. Recorded at 42.66N 18.07E (Dubrovnik, Dubrovnik-Neretva, Croatia).",
+  "source": "https://freesound.org/people/freesoundjon01/sounds/323393/"
+ },
+ {
+  "key": "venice-squero",
+  "name": "Shipyard at San Trovaso",
+  "place": "Venice, Italy (across the Adriatic)",
+  "lat": 45.43,
+  "lon": 12.33,
+  "desc": "The squero (shipyard) of San Trovaso on the Venice lagoon — the Italian shore of the Adriatic.",
+  "audio": "audio/venice-squero.opus",
+  "credit": "“Squero di San Trovaso - Venezia | 231029” — recorded by GammaSintesi (Freesound), CC0 1.0. Recorded at 45.43N 12.33E (Venezia, Venice, Italy).",
+  "source": "https://freesound.org/people/GammaSintesi/sounds/707909/"
+ },
+ {
+  "key": "trieste-market",
+  "name": "Mercato Coperto",
+  "place": "Trieste, Italy (across the Adriatic)",
+  "lat": 45.65,
+  "lon": 13.78,
+  "desc": "Inside Trieste's covered market — the other shore of the northern Adriatic.",
+  "audio": "audio/trieste-market.opus",
+  "credit": "“Trieste_Mercato_Coperto” — recorded by nicotep (Freesound), CC0 1.0. Recorded at 45.65N 13.78E (Trieste, Trieste, Italy).",
+  "source": "https://freesound.org/people/nicotep/sounds/843240/"
  }
 ]

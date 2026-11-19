@@ -18,6 +18,17 @@ Workflow (`scripts/fetch-freesound`, needs `FREESOUND_API_KEY` env var, never co
 
 Known quirk: Freesound's coverage of *Croatia specifically* is thin; most Adriatic recordings are from Italian and Slovenian coasts. That is fine and honest (the sea has no border), but captions must state where each recording was actually made.
 
+### No-API-key path (used for sprint 2)
+
+When `FREESOUND_API_KEY` is not available, `scripts/find-freesound-candidates.py` scrapes the **public**
+search (with `license:"Creative Commons 0"` / `"Creative Commons Attribution"` + `duration:[0 TO 180]`
+filters) and each sound page, then mechanically verifies per sound: license exactly CC0/CC-BY, geotag
+inside the Adriatic bbox, duration, preview URL. Output: `scripts/data/candidates.json`.
+`scripts/ingest-scraped.py` then downloads the public HQ previews and transcodes them with the exact
+same pipeline as `fetch-freesound.py` (mono 24 kHz Opus 32k, <= 90 s, <= 500 KB) for the entries in
+`scripts/sprint2-selection.json`. The same mechanical rejects apply at ingest time. The API path
+remains preferred when a key is available (it returns authoritative metadata).
+
 ### Layer 2 — the maker's own recordings (the unique layer, sprint 2)
 
 Recorded on the Croatian coast by the human owner. License: "© MareSpot, used with permission" in the manifest (self-owned, or simply "recorded by the author"). This layer needs no external licensing at all — that is its point. The recording guide (also send to the human):
