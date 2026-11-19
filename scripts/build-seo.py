@@ -208,6 +208,7 @@ def page_head(title, desc, canonical, ld, csp, og_type="website"):
 <title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
 <meta name="robots" content="index, follow, max-image-preview:large">
+<meta name="google-site-verification" content="TXobfaZY7FfdrdfULA5z-FzDM37T2LCpVPcXOT2QNiE">
 <meta name="theme-color" content="#050c16">
 <meta http-equiv="Content-Security-Policy" content="{csp}">
 <link rel="canonical" href="{canonical}">
