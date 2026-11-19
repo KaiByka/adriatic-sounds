@@ -14,6 +14,7 @@
   "lat": 43.94,
   "lon": 15.44,
   "desc": "A working north-easterly worrying the masts and halyards in the marina — the same voice the bura has in Senj.",
+  "bridge": { "text": "Hear the wind here, then check the live Adriatic wind forecast", "url": "https://marespot.com", "label": "marespot.com" },
   "audio": "audio/senj-bura.opus",
   "credit": "“Yachts in the wind I - Marina Kornati Biograd na Moru” — recorded by zybil (Freesound), CC-BY 4.0. Recorded 2020-11-10 at 43.94N 15.44E.",
   "source": "https://freesound.org/people/zybil/sounds/543767/"

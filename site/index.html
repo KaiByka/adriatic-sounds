@@ -5,199 +5,539 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Sounds of the Adriatic — a sound map of the Croatian coast</title>
 <meta name="description" content="Harbor murmurs, cicada-filled pine coves, the bura humming through rigging, bells across the water. Tap a pin, hear the place.">
+<meta name="theme-color" content="#050c16">
+<meta property="og:title" content="Sounds of the Adriatic — a sound map of the Croatian coast">
+<meta property="og:description" content="Harbor murmurs, cicada-filled pine coves, the bura humming through rigging, bells across the water. Tap a pin, hear the place.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sound.marespot.com/">
+<meta property="og:image" content="https://sound.marespot.com/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Sounds of the Adriatic">
+<meta name="twitter:description" content="A sound map of the Croatian coast. Tap a pin, hear the place.">
+<meta name="twitter:image" content="https://sound.marespot.com/og-image.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23050c16'/%3E%3Ccircle cx='16' cy='16' r='6' fill='%23d8a24a'/%3E%3C/svg%3E">
 <style>
   :root {
-    --bg: #0b1626; --panel: #101d33; --line: #1d2c47;
-    --text: #e8edf5; --muted: #8fa0b8; --accent: #d8a24a;
+    --bg: #050c16; --panel: #101d33; --line: #1d2c47;
+    --text: #e8edf5; --muted: #8fa0b8; --accent: #d8a24a; --teal: #57c7c9;
     --serif: Georgia, 'Times New Roman', serif;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font: 16px/1.6 system-ui, -apple-system, sans-serif; min-height: 100vh; }
-  header { text-align: center; padding: 34px 16px 6px; }
-  h1 { font: italic 700 clamp(26px, 5vw, 40px)/1.15 var(--serif); }
-  header p { color: var(--muted); margin-top: 6px; font-size: 15px; }
-  .map-wrap { max-width: 1000px; margin: 10px auto 0; padding: 0 12px; }
-  svg.map { width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 12px; background: #08111e; }
-  .land { fill: #14243e; stroke: #24375c; stroke-width: 0.6; }
-  .pin { cursor: pointer; }
-  .pin circle.dot { fill: var(--accent); }
-  .pin.pending circle.dot { fill: none; stroke: var(--muted); stroke-width: 1.4; }
-  .pin circle.ring { fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: 0; }
-  .pin.active circle.ring { opacity: 1; }
-  .pin circle.hit { fill: transparent; } /* 44px tap target */
-  .pin text { font: 11px system-ui; fill: var(--muted); paint-order: stroke; stroke: #08111e; stroke-width: 3px; }
-  .card { max-width: 976px; margin: 14px auto 0; background: var(--panel); border: 1px solid var(--line); border-radius: 12px; padding: 20px 22px; }
+  html { scrollbar-color: #24375c var(--bg); }
+  body {
+    background: radial-gradient(140% 100% at 50% -10%, #0c1c33 0%, var(--bg) 58%) fixed, var(--bg);
+    color: var(--text); font: 16px/1.6 system-ui, -apple-system, sans-serif; min-height: 100vh;
+  }
+  /* film grain + vignette over everything (pure texture, no pointer events) */
+  body::before {
+    content: ""; position: fixed; inset: 0; z-index: 70; pointer-events: none; opacity: .05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  body::after {
+    content: ""; position: fixed; inset: 0; z-index: 71; pointer-events: none;
+    background: radial-gradient(120% 90% at 50% 42%, transparent 55%, rgba(2,6,12,.55) 100%);
+  }
+
+  header { text-align: center; padding: 42px 16px 4px; position: relative; z-index: 1; }
+  .kicker { font-size: 11px; letter-spacing: .42em; text-transform: uppercase; color: var(--accent); margin-bottom: 10px; }
+  h1 { font: italic 700 clamp(28px, 5.4vw, 44px)/1.12 var(--serif); text-shadow: 0 2px 34px rgba(216,162,74,.18); }
+  .wave { width: 200px; height: 26px; margin: 12px auto 0; display: block; }
+  .wave rect { fill: var(--accent); opacity: .2; transform-box: fill-box; transform-origin: center; }
+  body.playing .wave rect { opacity: .85; animation: eqbar .7s ease-in-out infinite alternate; }
+  header .sub { color: var(--muted); margin-top: 8px; font-size: 15px; }
+
+  .map-wrap { max-width: 1000px; margin: 18px auto 0; padding: 0 12px; position: relative; z-index: 1; }
+  svg.map {
+    width: 100%; height: auto; display: block; border: 1px solid var(--line); border-radius: 18px;
+    background: #060f1d; box-shadow: 0 30px 90px rgba(0,0,0,.6), inset 0 0 140px rgba(0,0,0,.4);
+  }
+  .sheen { pointer-events: none; }
+  .grat line { stroke: #1c2c48; stroke-width: .6; opacity: .6; }
+  .grat text { font: 9px system-ui, sans-serif; fill: #3a4f74; }
+  .land { fill: url(#landGrad); stroke: #2b4166; stroke-width: .7; stroke-linejoin: round; }
+  .coast-glow { fill: none; stroke: rgba(216,162,74,.55); stroke-width: 2.4; filter: url(#blurGlow); opacity: .3; pointer-events: none; }
+  .coast-draw { fill: none; stroke: #e9bd6d; stroke-width: 1.3; stroke-linecap: round; pointer-events: none; }
+  .places .city-dot { fill: #54688a; }
+  .places .city { font: 10px system-ui, sans-serif; fill: #7d92b3; paint-order: stroke; stroke: #060f1d; stroke-width: 3px; }
+  .places .region { font: italic 13px Georgia, serif; fill: #5f7290; letter-spacing: .22em; opacity: .8; }
+  .places .sea { font: 11px system-ui, sans-serif; fill: #42597e; letter-spacing: .55em; opacity: .9; }
+  .furniture .compass-ring { fill: rgba(6,15,29,.55); stroke: #3a4f74; stroke-width: 1; }
+  .furniture .compass-arrow { fill: var(--accent); }
+  .furniture .compass-n { font: 700 10px system-ui, sans-serif; fill: #8fa0b8; }
+  .furniture .scale-bar { stroke: #3a4f74; stroke-width: 1.6; }
+  .furniture .scale-label { font: 9px system-ui, sans-serif; fill: #3a4f74; }
+  #connector {
+    fill: none; stroke: var(--accent); stroke-width: 1.1; stroke-dasharray: 2 6; stroke-linecap: round;
+    opacity: 0; transition: opacity .4s; pointer-events: none;
+  }
+
+  .pin { cursor: pointer; outline: none; transform-box: fill-box; transform-origin: center; transform: scale(0); transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
+  .pin.in { transform: scale(1); }
+  .pin .glow { fill: url(#pinGlow); opacity: .45; transition: opacity .3s; pointer-events: none; }
+  .pin:hover .glow, .pin:focus-visible .glow, .pin.active .glow { opacity: .95; }
+  .pin .dot { fill: var(--accent); transition: transform .25s; transform-box: fill-box; transform-origin: center; }
+  .pin:hover .dot { transform: scale(1.35); }
+  .pin:focus-visible .dot { stroke: #fff; stroke-width: 1.6; }
+  .pin.pending .dot { fill: none; stroke: var(--muted); stroke-width: 1.4; }
+  .pin .ring { fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: 0; transition: opacity .3s; pointer-events: none; }
+  .pin.active .ring { opacity: 1; }
+  .pin .pulse { fill: none; stroke: var(--accent); stroke-width: 1.4; opacity: 0; transform-box: fill-box; transform-origin: center; pointer-events: none; }
+  .pin .eq { opacity: 0; transition: opacity .2s; pointer-events: none; }
+  .pin .eq rect { fill: var(--accent); transform-box: fill-box; transform-origin: 50% 100%; }
+  .pin text { font: 11px system-ui, sans-serif; fill: var(--text); opacity: 0; transition: opacity .25s; paint-order: stroke; stroke: #060f1d; stroke-width: 3px; pointer-events: none; }
+  .pin:hover text, .pin:focus-visible text, .pin.active text { opacity: 1; }
+  .pin .hit { fill: transparent; }
+
+  .card {
+    position: sticky; bottom: 10px; z-index: 30;
+    width: calc(100% - 24px); max-width: 976px; margin: -64px auto 0;
+    background: rgba(13,24,43,.78);
+    -webkit-backdrop-filter: blur(18px) saturate(1.35); backdrop-filter: blur(18px) saturate(1.35);
+    border: 1px solid rgba(216,162,74,.18); border-radius: 20px;
+    padding: 12px 22px 18px; box-shadow: 0 24px 70px rgba(0,0,0,.55);
+  }
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) { .card { background: #0d1830; } }
+  .card::before { content: ""; display: block; width: 44px; height: 4px; border-radius: 99px; background: rgba(143,160,184,.35); margin: 0 auto 12px; }
+  .card.swap { animation: cardIn .35s ease; }
+  @keyframes cardIn { from { transform: translateY(10px); opacity: .4; } }
   .card h2 { font: italic 700 22px/1.3 var(--serif); }
-  .card .meta { color: var(--accent); font-size: 14px; margin: 2px 0 10px; }
-  .card p { color: var(--muted); font-size: 15px; }
-  .row { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
-  button.play { background: var(--accent); color: #1a1205; border: 0; border-radius: 999px; min-width: 110px; min-height: 44px; padding: 11px 20px; font: 600 15px system-ui; cursor: pointer; }
-  button.play:disabled { background: var(--panel); color: var(--muted); border: 1px solid var(--line); cursor: default; }
+  .card .meta { color: var(--accent); font-size: 13.5px; margin: 2px 0 8px; letter-spacing: .04em; }
+  .card p#c-desc { color: var(--muted); font-size: 15px; max-width: 72ch; }
+  #c-wave { display: none; width: 100%; height: 46px; margin-top: 12px; }
+  #c-wave.ready { display: block; }
+  .row { display: flex; align-items: center; gap: 14px; margin-top: 14px; flex-wrap: wrap; }
+  button.play {
+    background: linear-gradient(180deg, #eec06f, var(--accent)); color: #1a1205; border: 0; border-radius: 999px;
+    min-width: 110px; min-height: 44px; padding: 11px 20px; font: 600 15px system-ui, sans-serif; cursor: pointer;
+    box-shadow: 0 6px 20px rgba(216,162,74,.32); transition: transform .12s ease, box-shadow .2s ease;
+  }
+  button.play:hover:not(:disabled) { box-shadow: 0 8px 26px rgba(216,162,74,.45); }
+  button.play:active:not(:disabled) { transform: scale(.95); }
+  button.play:focus-visible { outline: 2px solid var(--teal); outline-offset: 2px; }
+  button.play:disabled { background: var(--panel); color: var(--muted); border: 1px solid var(--line); box-shadow: none; cursor: default; }
   button.play.playing::before { content: "◼ "; } button.play:not(.playing)::before { content: "▶ "; }
-  .credit { font-size: 12.5px; color: #5f7290; margin-top: 12px; }
+  button.play:disabled::before { content: ""; }
+  .track { flex: 1 1 120px; height: 5px; background: var(--line); border-radius: 99px; overflow: hidden; }
+  .fill { height: 100%; width: 0; background: linear-gradient(90deg, var(--accent), #f2cd8a); border-radius: 99px; }
+  .time { font: 12px system-ui, sans-serif; color: var(--muted); font-variant-numeric: tabular-nums; min-width: 86px; text-align: right; }
+  .bridge { margin-top: 10px; font-size: 13.5px; color: var(--muted); }
+  .bridge a { color: var(--teal); text-decoration: none; border-bottom: 1px dotted rgba(87,199,201,.5); }
+  .credit { font-size: 12.5px; color: #5f7290; margin-top: 12px; line-height: 1.55; }
+  .credit a { color: var(--accent); text-decoration: none; border-bottom: 1px dotted rgba(216,162,74,.5); }
   .badge { display: inline-block; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; border: 1px solid var(--accent); color: var(--accent); border-radius: 6px; padding: 2px 8px; vertical-align: middle; margin-left: 8px; }
-  footer { text-align: center; padding: 26px 16px 40px; color: #5f7290; font-size: 14px; border-top: 1px solid var(--line); margin-top: 28px; }
+
+  footer { text-align: center; padding: 26px 16px 40px; color: #5f7290; font-size: 14px; border-top: 1px solid var(--line); margin-top: 28px; position: relative; z-index: 1; }
   footer a { color: var(--muted); }
   footer .fine { margin-top: 8px; font-size: 12px; }
+  noscript p { text-align: center; color: var(--muted); padding: 20px; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .sheen { animation: sheen 18s linear infinite; }
+    .pin.active .pulse { animation: pulse 1.8s ease-out infinite; }
+    .pin.playing .eq { opacity: 1; }
+    .pin.playing .eq rect { animation: eqbar .9s ease-in-out infinite alternate; }
+    .pin.playing .eq rect:nth-child(2) { animation-delay: .22s; }
+    .pin.playing .eq rect:nth-child(3) { animation-delay: .45s; }
+    #connector { animation: march 1.4s linear infinite; }
+  }
+  @keyframes sheen { from { transform: translateX(-460px); } to { transform: translateX(1460px); } }
+  @keyframes pulse { 0% { transform: scale(.55); opacity: .85; } 100% { transform: scale(2.4); opacity: 0; } }
+  @keyframes eqbar { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+  @keyframes march { to { stroke-dashoffset: -8; } }
+  @media (prefers-reduced-motion: reduce) {
+    .pin { transition: none; } .pin .dot, .pin .glow, .pin .ring, .pin text { transition: none; }
+  }
 </style>
 </head>
 <body>
 <header>
+  <div class="kicker">A sound map of the Croatian coast</div>
   <h1>Sounds of the Adriatic</h1>
-  <p>A sound map of the Croatian coast. Put on headphones, tap a pin.</p>
+  <svg class="wave" id="wave" viewBox="0 0 220 26" aria-hidden="true"></svg>
+  <p class="sub">Put on headphones, tap a pin, hear the place.</p>
 </header>
 
 <div class="map-wrap">
-  <svg class="map" id="map" viewBox="0 0 1000 862" role="img" aria-label="Adriatic coastline with sound pins"></svg>
+  <svg class="map" id="map" viewBox="0 0 1000 862" role="img" aria-label="Adriatic coastline with sound pins">
+    <defs>
+      <radialGradient id="seaGrad" cx="50%" cy="36%" r="85%">
+        <stop offset="0%" stop-color="#0f2c4e"/>
+        <stop offset="45%" stop-color="#0a1c33"/>
+        <stop offset="100%" stop-color="#060f1d"/>
+      </radialGradient>
+      <linearGradient id="landGrad" x1="0" y1="0" x2="0.3" y2="1">
+        <stop offset="0%" stop-color="#1d3557"/>
+        <stop offset="100%" stop-color="#12233f"/>
+      </linearGradient>
+      <radialGradient id="pinGlow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stop-color="#d8a24a" stop-opacity=".5"/>
+        <stop offset="55%" stop-color="#d8a24a" stop-opacity=".16"/>
+        <stop offset="100%" stop-color="#d8a24a" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="sheenGrad" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#57c7c9" stop-opacity="0"/>
+        <stop offset=".5" stop-color="#57c7c9" stop-opacity=".9"/>
+        <stop offset="1" stop-color="#57c7c9" stop-opacity="0"/>
+      </linearGradient>
+      <filter id="blurGlow" x="-30%" y="-30%" width="160%" height="160%">
+        <feGaussianBlur stdDeviation="2.6"/>
+      </filter>
+    </defs>
+    <rect x="0" y="0" width="1000" height="862" fill="url(#seaGrad)"/>
+    <rect class="sheen" x="0" y="0" width="420" height="862" fill="url(#sheenGrad)" opacity=".055"/>
+    <g id="grat"></g>
+    <g id="land"></g>
+    <g id="places" class="places"></g>
+    <path id="connector" d=""/>
+    <g id="furniture" class="furniture"></g>
+    <g id="pins"></g>
+  </svg>
 </div>
 
-<div class="card" id="card">
+<aside class="card" id="card" aria-live="polite">
   <h2><span id="c-name"></span><span class="badge" id="c-badge" hidden>not yet recorded</span></h2>
   <div class="meta" id="c-meta"></div>
   <p id="c-desc"></p>
-  <div class="row"><button class="play" id="c-play" disabled>Play</button></div>
+  <canvas id="c-wave" aria-hidden="true"></canvas>
+  <div class="row">
+    <button class="play" id="c-play" disabled>Play</button>
+    <div class="track" id="c-track" hidden><div class="fill" id="c-fill"></div></div>
+    <span class="time" id="c-time" hidden></span>
+  </div>
+  <p class="bridge" id="c-bridge" hidden></p>
   <div class="credit" id="c-credit"></div>
-</div>
+</aside>
 
 <footer>
   <p><b>A MareSpot experiment — live Adriatic wind, shelter &amp; sea temperature at <a href="https://marespot.com">marespot.com</a></b></p>
   <p class="fine">Map: Natural Earth (public domain) · All sounds CC0 / CC-BY, credited on each pin card · full list in LICENSE-MANIFEST.json</p>
 </footer>
 
+<noscript><p>This sound map needs JavaScript to draw the coast and play the pins.</p></noscript>
+
 <script>
+(() => {
+'use strict';
 const W = 1000, H = 862, LON0 = 12, LON1 = 20, LAT0 = 41.5, LAT1 = 46.5;
+const NS = 'http://www.w3.org/2000/svg';
 const PX = lon => (lon - LON0) / (LON1 - LON0) * W;
 const PY = lat => (LAT1 - lat) / (LAT1 - LAT0) * H;
+const $ = id => document.getElementById(id);
+const svg = $('map'), gGrat = $('grat'), gLand = $('land'), gPlaces = $('places'),
+      gFurn = $('furniture'), gPins = $('pins'), connector = $('connector'), card = $('card');
+const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function el(n, attrs, parent) {
+  const e = document.createElementNS(NS, n);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
 
-fetch("data/coastline.json").then(r => r.json()).then(c => drawLand(c))
-  .catch(() => drawLand({ type: "FeatureCollection", features: [] }));
+/* ---------- header waveform (pure decoration, animates only while playing) ---------- */
+const wave = $('wave');
+for (let i = 0; i < 30; i++) {
+  const h = 5 + 9 * Math.abs(Math.sin(i * 0.83 + 1));
+  const r = el('rect', { x: 2 + i * 7.2, y: (26 - h) / 2, width: 3.2, height: h, rx: 1.6 }, wave);
+  r.style.animationDelay = (i * 0.06) + 's';
+}
+
+/* ---------- data ---------- */
 let PINS = [];
-fetch("data/pins.json").then(r => r.json()).then(p => { PINS = p; drawPins(); })
-  .catch(() => {});
+const pinEls = {};
+const pCoast = fetch('data/coastline.json').then(r => r.json()).catch(() => ({ type: 'FeatureCollection', features: [] }));
+const pPins  = fetch('data/pins.json').then(r => r.json()).catch(() => []);
+const pPlaces = fetch('data/places.json').then(r => r.json()).catch(() => null);
+Promise.all([pCoast, pPins, pPlaces]).then(([coast, pins, places]) => {
+  PINS = pins;
+  drawGrat(); drawLand(coast); if (places) drawPlaces(places);
+  drawFurniture(); drawPins(); wireHash();
+});
 
+/* ---------- map furniture: graticule, labels, compass, scale bar ---------- */
+function drawGrat() {
+  for (let lon = 12; lon <= 20; lon++) {
+    el('line', { x1: PX(lon), y1: 0, x2: PX(lon), y2: H }, gGrat);
+    const t = el('text', { x: PX(lon), y: H - 6, 'text-anchor': 'middle' }, gGrat);
+    t.textContent = lon + '°E';
+  }
+  for (let lat = 42; lat <= 46; lat++) {
+    el('line', { x1: 0, y1: PY(lat), x2: W, y2: PY(lat) }, gGrat);
+    const t = el('text', { x: 6, y: PY(lat) - 4 }, gGrat);
+    t.textContent = lat + '°N';
+  }
+}
 function pathFor(rings) {
-  let d = "";
+  let d = '';
   for (const ring of rings) {
-    d += "M" + ring.map(pt => PX(pt[0]).toFixed(1) + " " + PY(pt[1]).toFixed(1)).join("L") + "Z";
+    d += 'M' + ring.map(pt => PX(pt[0]).toFixed(1) + ' ' + PY(pt[1]).toFixed(1)).join('L') + 'Z';
   }
   return d;
 }
 function drawLand(fc) {
-  const svg = document.getElementById("map");
+  const drawPaths = [];
   for (const f of fc.features) {
     const g = f.geometry;
-    if (g.type === "Polygon") poly(g.coordinates);
-    else if (g.type === "MultiPolygon") g.coordinates.forEach(rings => poly(rings));
+    const polys = g.type === 'Polygon' ? [g.coordinates] : (g.type === 'MultiPolygon' ? g.coordinates : []);
+    for (const rings of polys) {
+      const d = pathFor(rings);
+      el('path', { d, 'class': 'coast-glow' }, gLand);
+      el('path', { d, 'class': 'land' }, gLand);
+      drawPaths.push(el('path', { d, 'class': 'coast-draw' }, gLand));
+    }
   }
-  function poly(rings) {
-    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-    path.setAttribute("d", pathFor(rings));
-    path.setAttribute("class", "land");
-    svg.appendChild(path);
+  if (reduced || !drawPaths.length) { drawPaths.forEach(p => p.remove()); return; }
+  for (const dp of drawPaths) {
+    const len = dp.getTotalLength();
+    dp.style.strokeDasharray = len;
+    dp.style.strokeDashoffset = len;
+  }
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    for (const dp of drawPaths) {
+      dp.style.transition = 'stroke-dashoffset 1.6s cubic-bezier(.4,0,.2,1) .15s, opacity .9s ease 1.5s';
+      dp.style.strokeDashoffset = '0';
+      dp.style.opacity = '0';
+    }
+    setTimeout(() => drawPaths.forEach(dp => dp.remove()), 2600);
+  }));
+}
+function drawPlaces(p) {
+  if (p.sea) {
+    const t = el('text', { 'class': 'sea', x: PX(p.sea.lon), y: PY(p.sea.lat), 'text-anchor': 'middle' }, gPlaces);
+    t.textContent = p.sea.name;
+  }
+  for (const r of p.regions || []) {
+    const t = el('text', { 'class': 'region', x: PX(r.lon), y: PY(r.lat), 'text-anchor': 'middle' }, gPlaces);
+    t.textContent = r.name;
+  }
+  for (const c of p.cities || []) {
+    const x = PX(c.lon), y = PY(c.lat);
+    el('circle', { 'class': 'city-dot', cx: x, cy: y, r: 2 }, gPlaces);
+    const t = el('text', { 'class': 'city', x: x + 6, y: y + 3 }, gPlaces);
+    t.textContent = c.name;
   }
 }
+function drawFurniture() {
+  const cx = 936, cy = 66;
+  el('circle', { cx, cy, r: 19, 'class': 'compass-ring' }, gFurn);
+  el('polygon', { points: cx + ',' + (cy - 13) + ' ' + (cx - 5) + ',' + (cy + 9) + ' ' + cx + ',' + (cy + 4) + ' ' + (cx + 5) + ',' + (cy + 9), 'class': 'compass-arrow' }, gFurn);
+  const n = el('text', { x: cx, y: cy - 24, 'text-anchor': 'middle', 'class': 'compass-n' }, gFurn);
+  n.textContent = 'N';
+  const lat = 41.9, y = PY(lat), x0 = PX(12.4);
+  const deg = 100 / (111.32 * Math.cos(lat * Math.PI / 180));
+  const x1 = PX(12.4 + deg);
+  el('line', { x1: x0, y1: y, x2: x1, y2: y, 'class': 'scale-bar' }, gFurn);
+  el('line', { x1: x0, y1: y - 4, x2: x0, y2: y + 4, 'class': 'scale-bar' }, gFurn);
+  el('line', { x1: x1, y1: y - 4, x2: x1, y2: y + 4, 'class': 'scale-bar' }, gFurn);
+  const t = el('text', { x: (x0 + x1) / 2, y: y - 7, 'text-anchor': 'middle', 'class': 'scale-label' }, gFurn);
+  t.textContent = '100 km';
+}
 
+/* ---------- pins ---------- */
 function drawPins() {
-  const svg = document.getElementById("map");
   PINS.forEach((p, i) => {
-    const g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    g.setAttribute("class", "pin" + (p.audio ? "" : " pending"));
+    const g = el('g', { 'class': 'pin' + (p.audio ? '' : ' pending'), tabindex: '0', role: 'button', 'aria-label': p.name + ' — ' + p.place }, gPins);
     g.dataset.key = p.key;
     const x = PX(p.lon), y = PY(p.lat);
-    const ring = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    ring.setAttribute("cx", x); ring.setAttribute("cy", y); ring.setAttribute("r", 13);
-    ring.setAttribute("class", "ring");
-    const hit = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    hit.setAttribute("cx", x); hit.setAttribute("cy", y); hit.setAttribute("r", 22);
-    hit.setAttribute("class", "hit");
-    const dot = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    dot.setAttribute("cx", x); dot.setAttribute("cy", y); dot.setAttribute("r", 4.5);
-    dot.setAttribute("class", "dot");
-    const label = document.createElementNS("http://www.w3.org/2000/svg", "text");
-    label.setAttribute("x", x + 9); label.setAttribute("y", y - 8);
-    label.textContent = p.place.split(",")[0];
-    g.append(ring, hit, dot, label);
-    g.addEventListener("click", () => select(p.key));
-    svg.appendChild(g);
+    el('circle', { 'class': 'glow', cx: x, cy: y, r: 11 }, g);
+    el('circle', { 'class': 'pulse', cx: x, cy: y, r: 9 }, g);
+    el('circle', { 'class': 'ring', cx: x, cy: y, r: 13 }, g);
+    el('circle', { 'class': 'dot', cx: x, cy: y, r: 4.5 }, g);
+    const eq = el('g', { 'class': 'eq' }, g);
+    [-5.4, -1.3, 2.8].forEach(dx => el('rect', { x: x + dx, y: y - 15, width: 2.6, height: 7, rx: 1 }, eq));
+    const label = el('text', { x: x + 10, y: y - 10 }, g);
+    label.textContent = p.place.split(',')[0];
+    el('circle', { 'class': 'hit', cx: x, cy: y, r: 22 }, g);
+    g.addEventListener('click', () => select(p.key));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); select(p.key); } });
+    pinEls[p.key] = g;
+    if (!reduced) {
+      g.style.transitionDelay = (i * 70) + 'ms';
+      requestAnimationFrame(() => requestAnimationFrame(() => g.classList.add('in')));
+      setTimeout(() => { g.style.transitionDelay = '0ms'; }, i * 70 + 700);
+    } else g.classList.add('in');
   });
-  const m = location.hash.match(/sound=([\w-]+)/);
-  if (m && PINS.some(p => p.key === m[1])) select(m[1], { scroll: true });
-  else select(PINS[1] ? PINS[1].key : null);
-  window.addEventListener("hashchange", () => {
-    const h = location.hash.match(/sound=([\w-]+)/);
-    if (h && PINS.some(p => p.key === h[1])) select(h[1], { scroll: true });
-  });
+  updateHitRadius();
+}
+function updateHitRadius() {
+  const scale = svg.getBoundingClientRect().width / W || 1;
+  const r = Math.max(22, 24 / scale); /* >= 48px tap-target diameter on screen */
+  document.querySelectorAll('.pin .hit').forEach(h => h.setAttribute('r', r));
 }
 
+/* ---------- selection + card ---------- */
 let current = null;
 const audio = new Audio();
-audio.preload = "none"; // no audio bytes are ever fetched before a user taps play
-let currentSrc = null;
+audio.preload = 'none'; /* no audio bytes are ever fetched before a user taps play */
+let currentSrc = null, objUrl = null, actx = null, peaks = null;
+const btn = $('c-play');
+
 function select(key, opts) {
-  stopAudio();
+  audio.pause();
   current = PINS.find(p => p.key === key) || null;
-  document.querySelectorAll(".pin").forEach(el => el.classList.toggle("active", current && el.dataset.key === current.key));
-  const btn = document.getElementById("c-play");
+  for (const k in pinEls) {
+    const on = !!current && pinEls[k].dataset.key === current.key;
+    pinEls[k].classList.toggle('active', on);
+    pinEls[k].setAttribute('aria-pressed', on ? 'true' : 'false');
+  }
   if (!current) return;
-  document.getElementById("c-name").textContent = current.name;
-  document.getElementById("c-meta").textContent = current.place;
-  document.getElementById("c-desc").textContent = current.desc;
-  const badge = document.getElementById("c-badge");
+  $('c-name').textContent = current.name;
+  $('c-meta').textContent = current.place + ' · ' + current.lat.toFixed(2) + '°N ' + current.lon.toFixed(2) + '°E';
+  $('c-desc').textContent = current.desc;
+  const badge = $('c-badge');
   badge.hidden = !!current.audio;
-  badge.textContent = "not yet recorded";
-  const credit = document.getElementById("c-credit");
-  credit.textContent = "";
+  badge.textContent = 'not yet recorded';
+  const br = $('c-bridge');
+  br.hidden = !current.bridge;
+  br.textContent = '';
+  if (current.bridge) {
+    br.appendChild(document.createTextNode(current.bridge.text + ' '));
+    const a = document.createElement('a');
+    a.href = current.bridge.url; a.textContent = current.bridge.label + ' ↗'; a.rel = 'noopener';
+    br.appendChild(a);
+  }
+  const credit = $('c-credit');
+  credit.textContent = '';
   if (current.credit) {
-    credit.appendChild(document.createTextNode(current.credit + " "));
+    credit.appendChild(document.createTextNode(current.credit + ' '));
     if (current.source) {
-      const a = document.createElement("a");
-      a.href = current.source; a.textContent = "source ↗"; a.rel = "noopener";
+      const a = document.createElement('a');
+      a.href = current.source; a.textContent = 'source ↗'; a.rel = 'noopener';
       credit.appendChild(a);
     }
   } else {
-    credit.textContent = "Not yet recorded — real recordings arrive at launch.";
+    credit.textContent = 'Not yet recorded — real recordings arrive at launch.';
   }
+  peaks = null;
+  $('c-wave').classList.remove('ready');
+  $('c-track').hidden = !current.audio;
+  $('c-time').hidden = !current.audio;
+  $('c-fill').style.width = '0%';
+  $('c-time').textContent = '';
   btn.disabled = !current.audio;
-  btn.textContent = "";
-  btn.classList.remove("playing");
-  btn.appendChild(document.createTextNode(current.audio ? "Play" : "Not yet recorded"));
-  if (location.hash !== "sound=" + current.key) location.hash = "sound=" + current.key;
+  btn.classList.remove('playing');
+  btn.textContent = current.audio ? 'Play' : 'Not yet recorded';
+  if (location.hash !== 'sound=' + current.key) location.hash = 'sound=' + current.key;
+  card.classList.remove('swap'); void card.offsetWidth; card.classList.add('swap');
   if (opts && opts.scroll) {
-    const pinEl = document.querySelector('.pin[data-key="' + current.key + '"]');
-    if (pinEl) pinEl.scrollIntoView({ behavior: "smooth", block: "center" });
-    document.getElementById("card").scrollIntoView({ behavior: "smooth", block: "nearest" });
+    const pe = pinEls[current.key];
+    if (pe) pe.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'center' });
+    card.scrollIntoView({ behavior: reduced ? 'auto' : 'smooth', block: 'nearest' });
   }
+  updateConnector();
 }
-function stopAudio() {
-  audio.pause();
-  if (currentSrc) { try { audio.currentTime = 0; } catch (e) {} }
-  currentSrc = null;
-  const btn = document.getElementById("c-play");
-  btn.classList.remove("playing");
-  if (current && current.audio) btn.textContent = "Play";
+
+function wireHash() {
+  const m = location.hash.match(/sound=([\w-]+)/);
+  if (m && PINS.some(p => p.key === m[1])) select(m[1], { scroll: true });
+  else select(PINS[1] ? PINS[1].key : null);
+  window.addEventListener('hashchange', () => {
+    const h = location.hash.match(/sound=([\w-]+)/);
+    if (h && PINS.some(p => p.key === h[1]) && (!current || current.key !== h[1])) select(h[1], { scroll: true });
+  });
 }
-document.getElementById("c-play").addEventListener("click", () => {
+
+/* ---------- connector line from active pin to the card ---------- */
+function updateConnector() {
+  if (!current) { connector.setAttribute('d', ''); return; }
+  const srect = svg.getBoundingClientRect(), crect = card.getBoundingClientRect();
+  if (!srect.width) return;
+  const scale = srect.width / W;
+  if (crect.top < srect.bottom - 10 && crect.top > srect.top) {
+    const cx = (crect.left + crect.width / 2 - srect.left) / scale;
+    const tx = Math.max(24, Math.min(W - 24, cx));
+    const ty = Math.max(24, Math.min(H - 8, (crect.top - srect.top) / scale + 6));
+    const x = PX(current.lon), y = PY(current.lat);
+    const mx = (x + tx) / 2, my = Math.min(y, ty) - 46;
+    connector.setAttribute('d', 'M' + x + ' ' + y + ' Q' + mx + ' ' + my + ' ' + tx + ' ' + ty);
+    connector.style.opacity = '.55';
+  } else connector.style.opacity = '0';
+}
+window.addEventListener('scroll', updateConnector, { passive: true });
+window.addEventListener('resize', () => { updateHitRadius(); updateConnector(); drawWave(); });
+
+/* ---------- audio transport ---------- */
+function fmt(s) { s = Math.floor(s); return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0'); }
+function syncTransport() {
+  const playing = !!currentSrc && !audio.paused && !audio.ended;
+  document.body.classList.toggle('playing', playing);
+  btn.classList.toggle('playing', playing);
+  if (current && current.audio) btn.textContent = playing ? 'Stop' : 'Play';
+  const pe = current && pinEls[current.key];
+  if (pe) pe.classList.toggle('playing', playing);
+}
+btn.addEventListener('click', async () => {
   if (!current || !current.audio) return;
-  if (btn_playback_active()) { stopAudio(); return; }
-  if (currentSrc !== current.audio) {
-    audio.src = current.audio;   // first tap on this pin: only now are audio bytes requested
-    currentSrc = current.audio;
-    audio.load();
+  if (!audio.paused) { audio.pause(); return; }
+  btn.disabled = true;
+  try {
+    if (currentSrc !== current.audio) {
+      btn.textContent = 'Loading…';
+      const res = await fetch(current.audio); /* first tap on this pin: only now are audio bytes requested */
+      const buf = await res.arrayBuffer();
+      if (objUrl) URL.revokeObjectURL(objUrl);
+      objUrl = URL.createObjectURL(new Blob([buf.slice(0)], { type: 'audio/ogg' }));
+      audio.src = objUrl;
+      currentSrc = current.audio;
+      decodeWave(buf).catch(() => { /* waveform is optional decoration */ });
+    }
+    await audio.play();
+  } catch (e) { console.error(e); }
+  btn.disabled = !current.audio;
+});
+audio.addEventListener('play', syncTransport);
+audio.addEventListener('pause', syncTransport); /* headphone unplug / OS interruption lands here */
+audio.addEventListener('ended', syncTransport);
+audio.addEventListener('loadedmetadata', () => {
+  if (audio.duration && isFinite(audio.duration)) $('c-time').textContent = '0:00 / ' + fmt(audio.duration);
+});
+audio.addEventListener('timeupdate', () => {
+  if (audio.duration && isFinite(audio.duration)) {
+    $('c-fill').style.width = (audio.currentTime / audio.duration * 100) + '%';
+    $('c-time').textContent = fmt(audio.currentTime) + ' / ' + fmt(audio.duration);
   }
-  audio.play();
-  const btn = document.getElementById("c-play");
-  btn.classList.add("playing");
-  btn.textContent = "Stop";
+  drawWave();
 });
-function btn_playback_active() { return document.getElementById("c-play").classList.contains("playing"); }
-audio.addEventListener("ended", stopAudio);
-audio.addEventListener("pause", () => {
-  // headphone unplug / OS interruption: reflect the paused state on the button
-  const btn = document.getElementById("c-play");
-  btn.classList.remove("playing");
-  if (current && current.audio) btn.textContent = "Play";
-});
-document.addEventListener("visibilitychange", () => { if (document.hidden) stopAudio(); });
+document.addEventListener('visibilitychange', () => { if (document.hidden) audio.pause(); });
+
+/* ---------- real waveform, decoded only after the tap that fetched the audio ---------- */
+async function decodeWave(buf) {
+  actx = actx || new (window.AudioContext || window.webkitAudioContext)();
+  if (actx.state === 'suspended') await actx.resume();
+  const ab = await actx.decodeAudioData(buf.slice(0));
+  const ch = ab.getChannelData(0);
+  const N = 140;
+  peaks = new Float32Array(N);
+  const step = Math.floor(ch.length / N) || 1;
+  const stride = Math.max(1, Math.floor(step / 64));
+  for (let i = 0; i < N; i++) {
+    let m = 0;
+    const off = i * step;
+    for (let j = 0; j < step; j += stride) { const v = Math.abs(ch[off + j] || 0); if (v > m) m = v; }
+    peaks[i] = m;
+  }
+  const max = Math.max.apply(null, Array.from(peaks).concat([0.001]));
+  for (let i = 0; i < N; i++) peaks[i] /= max;
+  $('c-wave').classList.add('ready');
+  drawWave();
+}
+function drawWave() {
+  const cv = $('c-wave');
+  if (!peaks || !cv.classList.contains('ready')) return;
+  const dpr = window.devicePixelRatio || 1;
+  const w = cv.clientWidth || 600, h = 46;
+  if (cv.width !== Math.round(w * dpr)) { cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr); }
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  const N = peaks.length, bw = w / N, mid = h / 2;
+  const frac = (audio.duration && isFinite(audio.duration)) ? audio.currentTime / audio.duration : 0;
+  for (let i = 0; i < N; i++) {
+    const bh = Math.max(2, peaks[i] * (h - 6));
+    ctx.fillStyle = i / N <= frac ? '#d8a24a' : '#263b5c';
+    ctx.fillRect(i * bw + 0.5, mid - bh / 2, Math.max(1, bw - 1.2), bh);
+  }
+}
+})();
 </script>
 </body>
 </html>

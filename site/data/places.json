@@ -1,0 +1,19 @@
+{
+ "sea": { "name": "ADRIATIC SEA", "lat": 43.9, "lon": 14.3 },
+ "regions": [
+  { "name": "Istria", "lat": 45.25, "lon": 13.55 },
+  { "name": "Kvarner", "lat": 45.12, "lon": 14.5 },
+  { "name": "Dalmatia", "lat": 43.3, "lon": 17.0 }
+ ],
+ "cities": [
+  { "name": "Venice", "lat": 45.44, "lon": 12.33 },
+  { "name": "Trieste", "lat": 45.65, "lon": 13.77 },
+  { "name": "Rijeka", "lat": 45.33, "lon": 14.44 },
+  { "name": "Pula", "lat": 44.87, "lon": 13.85 },
+  { "name": "Zadar", "lat": 44.12, "lon": 15.22 },
+  { "name": "Šibenik", "lat": 43.73, "lon": 15.90 },
+  { "name": "Split", "lat": 43.51, "lon": 16.44 },
+  { "name": "Ancona", "lat": 43.62, "lon": 13.51 },
+  { "name": "Dubrovnik", "lat": 42.65, "lon": 18.09 }
+ ]
+}
