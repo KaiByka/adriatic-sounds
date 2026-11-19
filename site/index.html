@@ -570,12 +570,38 @@ function drawFurniture() {
 }
 
 /* ---------- pins ---------- */
+const pinPos = {};
+/* deterministic de-collision: push pins that sit closer than MIN_D apart
+   (e.g. the three Zadar pins) into a small ring, clamped to the map */
+function layoutPins() {
+  const MIN_D = 30;
+  const pts = PINS.map(p => ({ key: p.key, x: PX(p.lon), y: PY(p.lat) }));
+  for (let iter = 0; iter < 120; iter++) {
+    let moved = false;
+    for (let i = 0; i < pts.length; i++) for (let j = i + 1; j < pts.length; j++) {
+      const a = pts[i], b = pts[j];
+      let dx = b.x - a.x, dy = b.y - a.y, d = Math.hypot(dx, dy);
+      if (d < MIN_D) {
+        if (d < 0.001) { dx = 0.5 * (i % 2 ? 1 : -1); dy = 0.5 * (j % 2 ? 1 : -1); d = Math.hypot(dx, dy); }
+        const push = (MIN_D - d) / 2, ux = dx / d, uy = dy / d;
+        a.x -= ux * push; a.y -= uy * push; b.x += ux * push; b.y += uy * push;
+        a.x = Math.max(18, Math.min(W - 18, a.x)); a.y = Math.max(18, Math.min(H - 18, a.y));
+        b.x = Math.max(18, Math.min(W - 18, b.x)); b.y = Math.max(18, Math.min(H - 18, b.y));
+        moved = true;
+      }
+    }
+    if (!moved) break;
+  }
+  for (const pt of pts) pinPos[pt.key] = pt;
+}
 function drawPins() {
+  layoutPins();
   PINS.forEach((p, i) => {
     const link = el('a', { href: '#sound=' + p.key, 'class': 'pin-link', tabindex: '0', 'aria-label': p.name + ' — ' + p.place }, gPins);
     const g = el('g', { 'class': 'pin' + (p.audio ? '' : ' pending') }, link);
     g.dataset.key = p.key;
-    const x = PX(p.lon), y = PY(p.lat);
+    const pt = pinPos[p.key];
+    const x = pt.x, y = pt.y;
     el('circle', { 'class': 'glow', cx: x, cy: y, r: 11 }, g);
     el('circle', { 'class': 'pulse', cx: x, cy: y, r: 9 }, g);
     el('circle', { 'class': 'ring', cx: x, cy: y, r: 13 }, g);
@@ -698,7 +724,8 @@ function updateConnector() {
     const cx = (crect.left + crect.width / 2 - srect.left) / scale;
     const tx = Math.max(24, Math.min(W - 24, cx));
     const ty = Math.max(24, Math.min(H - 8, (crect.top - srect.top) / scale + 6));
-    const x = PX(current.lon), y = PY(current.lat);
+    const pp = pinPos[current.key] || { x: PX(current.lon), y: PY(current.lat) };
+    const x = pp.x, y = pp.y;
     const mx = (x + tx) / 2, my = Math.min(y, ty) - 46;
     connector.setAttribute('d', 'M' + x + ' ' + y + ' Q' + mx + ' ' + my + ' ' + tx + ' ' + ty);
     connector.style.opacity = '.55';
