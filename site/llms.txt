@@ -1,0 +1,87 @@
+# Sounds of the Adriatic — llms.txt
+
+A sound map of the Croatian coast. A dark map of the Adriatic with pins;
+tapping a pin plays a field recording of that place — harbours, coves,
+wind in the rigging, church bells, cicadas, open-sea swell.
+
+Site: https://sound.marespot.com/
+Map data: Natural Earth (public domain).
+
+## License policy
+
+Only CC0 and CC-BY recordings are published (non-commercial and
+no-derivatives licenses are banned because the project promotes a
+commercial product). Every sound is listed with creator, license URL,
+source URL and verification date in https://sound.marespot.com/LICENSE-MANIFEST.json and is
+credited on its pin card.
+
+## Sounds
+
+1. **The sea organ** — Zadar (44.12°N 15.22°E). Waves play the organ: sea-driven pipes tuned to tones. The best sound-object on the coast.
+   Status: not yet recorded (the maker's own recording is planned here).
+
+2. **Wind in the rigging** — Marina Kornati, Biograd na Moru (43.94°N 15.44°E). A working north-easterly worrying the masts and halyards in the marina — the same voice the bura has in Senj.
+   License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: zybil (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=senj-bura · file: https://sound.marespot.com/audio/senj-bura.opus (1:29, 322661 bytes, Opus mono)
+   Source: https://freesound.org/people/zybil/sounds/543767/
+
+3. **Tide between the rocks** — Near Rogoznica (43.49°N 16.29°E). Sea tides bubbling in and out between limestone rocks in a small village cove, recorded summer 2025.
+   License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: artsybadboi (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=vis-cove · file: https://sound.marespot.com/audio/vis-cove.opus (1:03, 234913 bytes, Opus mono)
+   Source: https://freesound.org/people/artsybadboi/sounds/829253/
+
+4. **Bells and cicadas in Betina** — Betina, island of Murter (43.83°N 15.60°E). A lazy summer afternoon: church bells over the harbor and cicadas in the stone pine shade.
+   License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: Satoration (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=sibenik-bells · file: https://sound.marespot.com/audio/sibenik-bells.opus (1:29, 387706 bytes, Opus mono)
+   Source: https://freesound.org/people/Satoration/sounds/58266/
+
+5. **Old-town murmur with gulls** — Starigrad, Pag (44.43°N 15.06°E). Soundscape of the old town Starigrad on Pag after sunset: sheep, crickets, birds, seagulls, people.
+   License: CC-BY 3.0 (http://creativecommons.org/licenses/by/3.0/) — creator: dkustic (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=hvar-riva · file: https://sound.marespot.com/audio/hvar-riva.opus (1:05, 228878 bytes, Opus mono)
+   Source: https://freesound.org/people/dkustic/sounds/58342/
+
+6. **Evening on the promenade** — Lapad, Dubrovnik (42.66°N 18.06°E). Around 6 p.m. in the Lapad district: evening town ambience as the day cools off.
+   License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: miastodzwiekow (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=split-riva · file: https://sound.marespot.com/audio/split-riva.opus (1:29, 308000 bytes, Opus mono)
+   Source: https://freesound.org/people/miastodzwiekow/sounds/345715/
+
+7. **Island channel ambience** — Brijuni islands (44.92°N 13.77°E). Boat life in the Brijuni channel off the Istrian coast: engines, water, gulls.
+   License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: VlatkoBlazek (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=rovinj-harbor · file: https://sound.marespot.com/audio/rovinj-harbor.opus (0:40, 157433 bytes, Opus mono)
+   Source: https://freesound.org/people/VlatkoBlazek/sounds/318322/
+
+8. **Open-sea swell** — Open Adriatic, 42.65N 14.04E (42.65°N 14.04°E). Small waves breaking close to the microphone in the open south Adriatic — nothing but water and wind.
+   License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: Loredenii (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=kornati-open · file: https://sound.marespot.com/audio/kornati-open.opus (1:29, 308479 bytes, Opus mono)
+   Source: https://freesound.org/people/Loredenii/sounds/802427/
+
+9. **Old town at dusk** — Dubrovnik old town (42.64°N 18.11°E). Recorded between 5 and 7 p.m. on the Walls of Dubrovnik's Old Town: the city exhaling after the day.
+   License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: miastodzwiekow (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=dubrovnik-port · file: https://sound.marespot.com/audio/dubrovnik-port.opus (1:29, 316657 bytes, Opus mono)
+   Source: https://freesound.org/people/miastodzwiekow/sounds/345865/
+
+10. **Ferry with gulls aboard** — Kvarner channel near Rab (44.60°N 14.97°E). A car ferry crossing the Kvarner channel: deck rumble, seagulls and people, recorded on board.
+   License: CC-BY 3.0 (http://creativecommons.org/licenses/by/3.0/) — creator: dkustic (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=krk-ferry · file: https://sound.marespot.com/audio/krk-ferry.opus (0:48, 176339 bytes, Opus mono)
+   Source: https://freesound.org/people/dkustic/sounds/58336/
+
+11. **Crickets at night** — Hills above Dramalj, near Crikvenica (45.20°N 14.67°E). Full-summer night soundfield in the forest on the hill above the village of Dramalj.
+   License: CC-BY 3.0 (http://creativecommons.org/licenses/by/3.0/) — creator: Nonoo (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=lastovo-night · file: https://sound.marespot.com/audio/lastovo-night.opus (1:13, 277249 bytes, Opus mono)
+   Source: https://freesound.org/people/Nonoo/sounds/36784/
+
+12. **Cicadas in the pines** — Brač island (43.27°N 16.63°E). Cicada orni singing from a vacation on the island of Brač, Croatia, 2013.
+   License: CC-BY 4.0 (https://creativecommons.org/licenses/by/4.0/) — creator: VlatkoBlazek (Freesound).
+   Listen/share: https://sound.marespot.com/#sound=stari-grad-cicadas · file: https://sound.marespot.com/audio/stari-grad-cicadas.opus (1:13, 364464 bytes, Opus mono)
+   Source: https://freesound.org/people/VlatkoBlazek/sounds/262906/
+
+## How to attribute
+
+If you link, embed or reuse a recording, credit the creator named on the
+pin and link the license URL shown there (CC-BY requires attribution;
+CC0 does not). Example: "Wind in the rigging" by zybil, CC-BY 4.0,
+via https://sound.marespot.com/#sound=senj-bura.
+
+## Related
+
+A MareSpot experiment — live Adriatic wind, shelter & sea temperature at https://marespot.com

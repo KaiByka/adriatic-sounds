@@ -19,12 +19,13 @@ adriatic-sounds/
 ├── README.md            ← this file
 ├── AGENTS.md            ← agent contract (licenses and audio budgets are the hard part)
 ├── site/                ← the deployed site (vanilla HTML/CSS/JS, no framework, no build)
-│   ├── index.html       ← map render, pin cards, audio player UI (all inline)
+│   ├── index.html       ← map render, pin cards, audio player UI + static sound index + JSON-LD
+│   ├── robots.txt / sitemap.xml / llms.txt / 404.html  ← SEO/GEO files (scripts/build-seo.py)
 │   ├── og-image.png     ← social share card (scripts/make-og-image.py)
 │   ├── audio/           ← the sounds (committed, per-file budgeted)
 │   ├── data/            ← pins.json, places.json, coastline.json (Natural Earth, public domain, pre-clipped)
 │   └── LICENSE-MANIFEST.json  ← every sound + license + attribution + source URL
-├── scripts/             ← build-time tools (clip-coastline.py, make-og-image.py, fetch-freesound.py)
+├── scripts/             ← build-time tools (build-seo.py, clip-coastline.py, make-og-image.py, fetch-freesound.py)
 └── docs/
     └── sourcing.md      ← Freesound workflow, license rules, recording guide
 ```

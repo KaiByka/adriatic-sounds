@@ -1,0 +1,6 @@
+# Sounds of the Adriatic — https://sound.marespot.com
+# We want to be indexed by search engines AND AI/LLM crawlers.
+User-agent: *
+Allow: /
+
+Sitemap: https://sound.marespot.com/sitemap.xml
