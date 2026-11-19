@@ -74,9 +74,20 @@
   .places .city { font: 10px system-ui, sans-serif; fill: #7d92b3; paint-order: stroke; stroke: #060f1d; stroke-width: 3px; }
   .places .region { font: italic 13px Georgia, serif; fill: #8fa0b8; letter-spacing: .22em; opacity: .8; }
   .places .sea { font: 11px system-ui, sans-serif; fill: #8fa0b8; letter-spacing: .55em; opacity: .9; }
-  .furniture .compass-ring { fill: rgba(6,15,29,.55); stroke: #54688a; stroke-width: 1; }
-  .furniture .compass-arrow { fill: var(--accent); }
-  .furniture .compass-n { font: 700 10px system-ui, sans-serif; fill: #8fa0b8; }
+  .furniture .windrose { pointer-events: none; }
+  .furniture .wr-ring { fill: rgba(6,15,29,.55); stroke: #54688a; stroke-width: 1; }
+  .furniture .wr-ring.inner { fill: none; stroke: rgba(84,104,138,.5); stroke-width: .6; }
+  .furniture .wr-ping { fill: none; stroke: var(--accent); stroke-width: 1; opacity: 0; transform-box: fill-box; transform-origin: center; }
+  .furniture .wr-tick { stroke: #54688a; stroke-width: .8; stroke-linecap: round; }
+  .furniture .wr-tick.card { stroke: #8fa0b8; stroke-width: 1.1; }
+  .furniture .wr-point { fill: #54688a; }
+  .furniture .wr-point.card { fill: var(--accent); }
+  .furniture .wr-point.shade { fill: #16283f; }
+  .furniture .wr-point.shade.card { fill: #a8762f; }
+  .furniture .wr-center { fill: var(--accent); }
+  .furniture .wr-star { transform-box: fill-box; transform-origin: center; }
+  .furniture .wr-letter { font: 700 8.5px system-ui, sans-serif; fill: #8fa0b8; }
+  .furniture .wr-letter.wr-n { fill: var(--accent); font-size: 10px; }
   .furniture .scale-bar { stroke: #54688a; stroke-width: 1.6; }
   .furniture .scale-label { font: 9px system-ui, sans-serif; fill: #8fa0b8; }
   #connector-glow {
@@ -210,8 +221,12 @@
     .pin.playing .eq rect:nth-child(3) { animation-delay: .45s; }
     #connector { animation: march 1.4s linear infinite; }
     #connector-node.ping { animation: nodeping .5s cubic-bezier(.34,1.56,.64,1); }
+    .wr-star { animation: wr-sway 7s ease-in-out infinite alternate; }
+    .wr-ping { animation: wr-ping 3.2s ease-out infinite; }
   }
   @keyframes nodeping { from { transform: scale(2.6); } }
+  @keyframes wr-sway { from { transform: rotate(-4deg); } to { transform: rotate(4deg); } }
+  @keyframes wr-ping { 0% { transform: scale(.82); opacity: .45; } 70% { opacity: .1; } 100% { transform: scale(1.28); opacity: 0; } }
   @keyframes sheen { from { transform: translateX(-460px); } to { transform: translateX(1460px); } }
   @keyframes pulse { 0% { transform: scale(.55); opacity: .85; } 100% { transform: scale(2.4); opacity: 0; } }
   @keyframes eqbar { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
@@ -222,6 +237,7 @@
     .card.swap { animation: none; }
     #connector, #connector-glow { animation: none; }
     #connector-node.ping { animation: none; }
+    .wr-star, .wr-ping { animation: none; }
   }
 </style>
 </head>
@@ -585,12 +601,41 @@ function drawPlaces(p) {
     t.textContent = c.name;
   }
 }
-function drawFurniture() {
+/* wind rose, top right: fixed rose card + tick ring, swaying needle star, ping */
+function drawWindRose() {
   const cx = 936, cy = 66;
-  el('circle', { cx, cy, r: 19, 'class': 'compass-ring' }, gFurn);
-  el('polygon', { points: cx + ',' + (cy - 13) + ' ' + (cx - 5) + ',' + (cy + 9) + ' ' + cx + ',' + (cy + 4) + ' ' + (cx + 5) + ',' + (cy + 9), 'class': 'compass-arrow' }, gFurn);
-  const n = el('text', { x: cx, y: cy - 24, 'text-anchor': 'middle', 'class': 'compass-n' }, gFurn);
-  n.textContent = 'N';
+  const g = el('g', { 'class': 'windrose', transform: 'translate(' + cx + ' ' + cy + ')' }, gFurn);
+  el('circle', { r: 24, 'class': 'wr-ping' }, g);
+  el('circle', { r: 24, 'class': 'wr-ring' }, g);
+  el('circle', { r: 19.5, 'class': 'wr-ring inner' }, g);
+  const card = el('g', {}, g);
+  for (let i = 0; i < 16; i++) { /* 16 ticks: long at cardinals, medium at half-winds, short between */
+    const a = i * Math.PI / 8, isCard = i % 4 === 0, isMid = i % 2 === 0;
+    const r1 = 19.5 + (isCard ? 4.5 : isMid ? 3 : 1.8);
+    el('line', { x1: (Math.sin(a) * 19.5).toFixed(2), y1: (-Math.cos(a) * 19.5).toFixed(2),
+                 x2: (Math.sin(a) * r1).toFixed(2), y2: (-Math.cos(a) * r1).toFixed(2),
+                 'class': 'wr-tick' + (isCard ? ' card' : '') }, card);
+  }
+  const star = el('g', { 'class': 'wr-star' }, g); /* the needle: sways like wind */
+  for (let i = 0; i < 8; i++) { /* 8-point star, each point split into a lit and a shaded half */
+    const a = i * Math.PI / 4, isCard = i % 2 === 0;
+    const L = isCard ? 18 : 12.5, w = isCard ? 4.6 : 3.1;
+    const tip = Math.sin(a) * L + ',' + (-Math.cos(a) * L);
+    const bl = (Math.sin(a + Math.PI / 2) * w).toFixed(2) + ',' + (-Math.cos(a + Math.PI / 2) * w).toFixed(2);
+    const br = (Math.sin(a - Math.PI / 2) * w).toFixed(2) + ',' + (-Math.cos(a - Math.PI / 2) * w).toFixed(2);
+    el('polygon', { points: tip + ' ' + bl + ' 0,0', 'class': 'wr-point' + (isCard ? ' card' : '') }, star);
+    el('polygon', { points: tip + ' 0,0 ' + br, 'class': 'wr-point shade' + (isCard ? ' card' : '') }, star);
+  }
+  el('circle', { r: 1.7, 'class': 'wr-center' }, g);
+  for (const [ch, deg, cls] of [['N', 0, ' wr-n'], ['E', 90, ''], ['S', 180, ''], ['W', 270, '']]) {
+    const a = deg * Math.PI / 180, r = 30;
+    const t = el('text', { x: (Math.sin(a) * r).toFixed(2), y: (-Math.cos(a) * r + 3).toFixed(2), 'text-anchor': 'middle', 'class': 'wr-letter' + cls }, g);
+    t.textContent = ch;
+  }
+}
+
+function drawFurniture() {
+  drawWindRose();
   const lat = 41.9, y = PY(lat), x0 = PX(12.4);
   const deg = 100 / (111.32 * Math.cos(lat * Math.PI / 180));
   const x1 = PX(12.4 + deg);
